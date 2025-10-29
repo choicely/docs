@@ -1,0 +1,56 @@
+---
+title: "Article"
+description: "Design and display customizable article content in your Android app"
+icon: "newspaper"
+---
+
+Choicely Article is a customizable view that allows you to design articles using the Choicely Builder and instantly preview the results in your Android app. With this view, you can easily integrate dynamic article content and update your app's UI without manual coding for each change.
+
+## 1. Test Article key
+
+```
+Y2hvaWNlbHktdGVzdC11c2EvYXJ0aWNsZXMvSzMyRU1ZSVNONExQOWpWblBXVlk
+```
+
+## 2. Add ChoicelyArticleView
+
+```xml
+<com.choicely.sdk.util.view.article.ChoicelyArticleView
+    android:id="@+id/choicely_article_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+```
+
+## 3. Load the Article
+
+<CodeGroup>
+```java Java
+ChoicelySDK.data().getArticle("article key")
+    .onLoadingStarted(() -> {
+        // show loader
+    })
+    .onError((errorCode, message) -> {
+        // on error
+    })
+    .onData(articleData -> {
+        // on success
+        choicelyArticleView.update(articleData);
+    })
+    .load();
+```
+
+```kotlin Kotlin
+ChoicelySDK.data().getArticle("article key")
+    .onLoadingStarted {
+        // show loader
+    }
+    .onError { errorCode, message ->
+        // on error
+    }
+    .onData { articleData ->
+        // on success
+        choicelyArticleView.update(articleData)
+    }
+    .load()
+```
+</CodeGroup>

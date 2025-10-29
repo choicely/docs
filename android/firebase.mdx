@@ -1,0 +1,44 @@
+---
+title: "Firebase"
+description: "Set up Firebase in your project with the Choicely Android SDK"
+icon: "fire"
+---
+
+Follow these steps to set up Firebase in your project with the Choicely Android SDK.
+
+Firebase is required to enable certain features in the Choicely Android SDK.
+
+## Why Firebase?
+
+- **Push Notifications** – Firebase Cloud Messaging (FCM) allows the app to send push notifications directly to users, helping you keep them engaged with instant updates, news, or alerts.
+- **Realtime Updates** – With Firebase Realtime Database, content and configuration changes can be delivered instantly to your users without requiring an app update. This ensures your app always reflects the latest data.
+- **Social Login** – The Choicely SDK integrates with Firebase Authentication to enable sign-in with popular providers such as Google, Facebook, and Apple. This makes it easy for users to log in without creating a separate account.
+
+## Gradle Setup
+
+Add the Firebase dependency and plugin configuration in your `build.gradle` files.
+
+### 1. Add Dependency
+
+```gradle
+implementation(platform("com.choicely.sdk:bom:1.0.5"))
+implementation("com.choicely.sdk:android-core")
+implementation("com.choicely.sdk:android-firebase")
+```
+
+### 2. Add Plugin in App-level build.gradle
+
+```gradle
+plugins {
+    id("com.google.gms.google-services")
+}
+```
+
+### 3. Add Plugin in Project-level build.gradle
+
+```gradle
+plugins {
+    ...
+    id("com.google.gms.google-services") version "4.4.3" apply false
+}
+```

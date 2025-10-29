@@ -1,0 +1,113 @@
+---
+title: "Quick Start"
+description: "Quickly integrate the Choicely iOS SDK into your project"
+icon: "rocket"
+---
+
+Quickly integrate the Choicely SDK into a fresh project by following these steps.
+
+## Add Choicely SDK to your project
+
+Use Swift Package Manager to install and manage Choicely dependencies.
+
+1. In Xcode, with your app project open, navigate to **File > Add Packages**.
+
+2. When prompted, add the Choicely SDK repository:
+   ```
+   https://github.com/choicely/choicely-sdk-ios.git
+   ```
+
+3. Choose available Choicely modules:
+
+   `ChoicelyCore` - Core SDK functionality + App Realtime Updates
+
+   `ChoicelyFirebase` - Social Login, Push Notifications, Analitycs
+
+   `ChoicelyMap` - Location, Interactive Map, Google Maps Integration
+
+   `ChoicelyShop` - In-App Purchases, Subscriptions, Paid Votes
+
+   <Note>
+   Detailed information about setup, features and module usage can be found in the corresponding menu sections: [ChoicelyFirebase](/ios/firebase), [ChoicelyMap](/ios/map), [ChoicelyShop](/ios/shop).
+   </Note>
+
+## Import and initialize ChoicelySDK
+
+1. Import the ChoicelyCore module in your App struct or UIApplicationDelegate:
+   ```swift
+   import ChoicelyCore
+   ```
+
+2. Initialize SDK with `ChoicelySDK.initialize(...)` method.
+
+   <CodeGroup>
+   ```swift UIKit
+   @UIApplicationMain
+   class AppDelegate: UIResponder, UIApplicationDelegate {
+
+       func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+           ChoicelySDK.initialize(
+               application: application,
+               appKey: "YOUR_APP_KEY"
+           )
+           return true
+       }
+
+       ...
+   }
+   ```
+
+   ```swift SwiftUI
+   @main
+   struct YourApp: App {
+       init() {
+           ChoicelySDK.initialize(
+               application: UIApplication.shared,
+               appKey: "YOUR_APP_KEY"
+           )
+       }
+
+       ...
+   }
+   ```
+   </CodeGroup>
+
+<Note>
+For testing purposes, you can use the SDK Demo app key: `Y2hvaWNlbHktZXUvYXBwcy9kS1lHUUtUbWREa1pRb1ltZFRiZQ`
+
+The SDK Demo app itself is available on github: [choicely-sdk-demo](https://github.com/choicely/choicely-sdk-demo)
+
+Alternatively, you can create your own app using Choicely Builder: [How to create apps with Choicely](https://www.choicely.com/tutorials/how-to-create-apps-with-choicely-using-an-app-template)
+</Note>
+
+Here's how to get the app key from the Choicely builder:
+
+<Frame>
+  <img src="/images/mobile-sdk/how-to-get-app-key.png" alt="Choicely App Key" />
+</Frame>
+
+## Set the initial view and present it
+
+1. Use the `ChoicelySplashViewController` or `ChoicelySplashView` as the root `UIViewController/SwiftUI.View` for your app:
+
+   <CodeGroup>
+   ```swift UIKit
+   window = UIWindow()
+   window?.rootViewController = ChoicelySplashViewController()
+   window?.makeKeyAndVisible()
+   ```
+
+   ```swift SwiftUI
+   var body: some Scene {
+     WindowGroup {
+       ChoicelySplashView()
+     }
+   }
+   ```
+   </CodeGroup>
+
+2. That's it! You're ready to launch the app.
+
+<Note>
+To enable Push Notifications, Social Login and Analitycs go to the next [ChoicelyFirebase](/ios/firebase) section.
+</Note>

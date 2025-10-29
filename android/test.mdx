@@ -1,0 +1,51 @@
+---
+title: "Testing"
+description: "Test the Choicely Android SDK with snapshot versions"
+icon: "flask"
+---
+
+To test the Choicely Android SDK with the latest snapshot versions, add the following repository configuration to your project.
+
+## Add Snapshot Repository
+
+<CodeGroup>
+```groovy Java
+pluginManagement {
+    repositories {
+        ......
+        maven { url 'https://jitpack.io' }
+        mavenCentral()  // for production Version
+        maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }  // for Snapshots Version
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        ......
+        maven { url 'https://jitpack.io' }
+        mavenCentral()  // for production Version
+        maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }  // for Snapshots Version
+    }
+}
+```
+
+```kotlin Kotlin
+pluginManagement {
+    repositories {
+        ......
+        maven(url = "https://jitpack.io")
+        mavenCentral()  // for production Version
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots/")  // for Snapshots Version
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        ......
+        maven(url = "https://jitpack.io")
+        mavenCentral()  // for production Version
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots/")  // for Snapshots Version
+    }
+}
+```
+</CodeGroup>

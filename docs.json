@@ -1,68 +1,71 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Choicely Mobile SDK",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#00D68F",
+    "light": "#00FFB3",
+    "dark": "#00B377"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Mobile",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Android",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "android/quick-start",
+              "android/firebase",
+              "android/map",
+              "android/shop",
+              "android/ad",
+              "android/article",
+              "android/feed",
+              "android/test"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Android Advanced",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "android-advanced/custom-splash",
+              "android-advanced/custom-fragment"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "iOS",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "ios/quick-start",
+              "ios/firebase",
+              "ios/map",
+              "ios/shop",
+              "ios/ad"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "iOS Advanced",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "ios-advanced/custom-view"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "resources/firebase-project",
+              "resources/map-api",
+              "resources/store-setup"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Getting Started",
             "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "index"
             ]
           }
         ]
@@ -71,33 +74,33 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Choicely Studio",
+          "href": "https://studio.choicely.com",
+          "icon": "rocket"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Website",
+          "href": "https://www.choicely.com",
+          "icon": "globe"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/choicely-logo.png",
+    "dark": "/logo/choicely-logo.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@choicely.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Choicely Studio",
+      "href": "https://studio.choicely.com"
     }
   },
   "contextual": {
@@ -114,9 +117,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "facebook": "https://www.facebook.com/Choicelyapp/",
+      "instagram": "https://www.instagram.com/choicelyapp/",
+      "linkedin": "https://linkedin.com/company/choicely"
     }
   }
 }

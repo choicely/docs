@@ -1,0 +1,124 @@
+---
+title: "Custom Splash Fragment"
+description: "Add a custom splash fragment with branding and animations to your Android app"
+icon: "mobile"
+---
+
+You can add a custom splash Fragment in your application with the Choicely SDK. The splash Fragment can display your branding, animations, or custom logic before the main content loads.
+
+## Steps to Add a Custom Splash Fragment
+
+### 1. Create a Splash Fragment
+
+Create a new fragment that extends `AbstractSplashFragment`. This is where you'll define your splash Fragment's layout and any custom logic.
+
+<CodeGroup>
+```java Java
+public class YourSplashFragment extends AbstractSplashFragment {
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_custom_splash;
+    }
+
+    @Override
+    protected void onLayoutCreated(@NonNull View layout, @Nullable Bundle savedInstanceState) {
+        super.onLayoutCreated(layout, savedInstanceState);
+        // Add your custom logic here, like starting an animation or loading data.
+    }
+
+    // Set Splash Duration in milliseconds
+    @Override
+    protected long getSplashDuration() {
+        return 1500; // 1.5 seconds
+    }
+}
+```
+
+```kotlin Kotlin
+class YourSplashFragment : AbstractSplashFragment() {
+
+    override fun getLayout(): Int {
+        return R.layout.fragment_custom_splash
+    }
+
+    override fun onLayoutCreated(layout: View, savedInstanceState: Bundle?) {
+        super.onLayoutCreated(layout, savedInstanceState)
+        // Add your custom logic here, like starting an animation or loading data.
+    }
+
+    // Set Splash Duration in milliseconds
+    override fun getSplashDuration(): Long {
+        return 1500 // 1.5 seconds
+    }
+}
+```
+</CodeGroup>
+
+### 2. Create a Splash Factory
+
+Create a factory class that implements `ChoicelySplashFactory`. This factory is responsible for providing an instance of your custom splash fragment.
+
+<CodeGroup>
+```java Java
+import com.choicely.sdk.factory.ChoicelySplashFactory;
+import com.choicely.sdk.fragment.AbstractSplashFragment;
+
+public class YourSplashFactory implements ChoicelySplashFactory {
+
+    @Override
+    public AbstractSplashFragment makeSplashFragment() {
+        return new YourSplashFragment();
+    }
+}
+```
+
+```kotlin Kotlin
+import com.choicely.sdk.factory.ChoicelySplashFactory
+import com.choicely.sdk.fragment.AbstractSplashFragment
+
+class YourSplashFactory : ChoicelySplashFactory {
+
+    override fun makeSplashFragment(): AbstractSplashFragment {
+        return YourSplashFragment()
+    }
+}
+```
+</CodeGroup>
+
+### 3. Add the Factory in Your Application Class
+
+Finally, in your `Application` class (e.g., `YourApplication.java` or `YourApplication.kt`), add a call to `ChoicelySDK.factory().setSplashFactory()` to use your custom splash Fragment.
+
+<CodeGroup>
+```java Java
+import android.app.Application;
+import com.choicely.sdk.ChoicelySDK;
+
+public class YourApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ....
+        ChoicelySDK.factory().setSplashFactory(new YourSplashFactory());
+    }
+}
+```
+
+```kotlin Kotlin
+import android.app.Application
+import com.choicely.sdk.ChoicelySDK
+
+class YourApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        ....
+        ChoicelySDK.factory().setSplashFactory(YourSplashFactory())
+    }
+}
+```
+</CodeGroup>
+
+<Info>
+Remember to create a layout file named `fragment_custom_splash.xml` in your `res/layout` directory to define the visual elements of your splash Fragment, such as an image, text, or a animation view.
+</Info>

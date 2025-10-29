@@ -1,0 +1,57 @@
+---
+title: "Maps"
+description: "Display locations, markers, and interactive map features in your Android app"
+icon: "map"
+---
+
+The Choicely Android SDK provides map functionality for displaying locations, markers, and interactive map features.
+
+## Why Maps?
+
+- **Location Features** – Display user or business locations directly on a map.
+- **Interactive Maps** – Add markers, zoom, and navigation support within your app.
+- **Google Maps Integration** – Leverages the official Google Maps SDK for reliable map rendering and user-friendly experience.
+
+## Gradle Setup
+
+Add the Choicely Maps SDK dependency in your `build.gradle` file.
+
+```gradle
+implementation(platform("com.choicely.sdk:bom:1.0.5"))
+implementation("com.choicely.sdk:android-core")
+implementation("com.choicely.sdk:android-map")
+```
+
+## Google Maps API Key Configuration
+
+To use Google Maps, you need to obtain an API key from the Google Cloud Console and add it to your `AndroidManifest.xml`.
+
+### 1. Enable Google Maps API
+
+The Google Maps API allows your app to display interactive maps, add markers, show user or business locations, and provide navigation features directly inside your application. Without enabling this API, your app cannot render maps or use map-related functionalities.
+
+Here is a link how you enable Google Maps API: [Google Maps API for Choicely map](/resources/map-api) in the Google Cloud Console.
+
+### 2. Add API Key in `strings.xml`
+
+Store your API key as a string resource in `res/values/strings.xml`:
+
+```xml
+<string name="google_maps_api_key" translatable="false">
+    YOUR_API_KEY_HERE
+</string>
+```
+
+### 3. Reference API Key in Manifest
+
+Then, reference the string resource inside the `application` tag of your `AndroidManifest.xml`:
+
+```xml
+<application
+    ...other attributes...
+>
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="@string/google_maps_api_key" />
+</application>
+```

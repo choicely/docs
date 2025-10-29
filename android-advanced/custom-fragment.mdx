@@ -1,0 +1,162 @@
+---
+title: "Custom Fragment"
+description: "Create custom fragments and embed Choicely content in your Android app"
+icon: "code"
+---
+
+The Choicely SDK allows you to create custom Fragment and embed Choicely content (articles, feeds, etc.) alongside your own UI logic.
+
+## Steps to Add a Custom Fragment
+
+### 1. Create a Custom Fragment
+
+Create a new fragment. This is where you'll define your fragment's layout and any custom logic.
+
+<CodeGroup>
+```java Java
+public class YourCustomFragment extends Fragment {
+    EditText editText;
+    Button button;
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_custom_fragment;
+    }
+
+    @Override
+    protected void onLayoutCreated(@NonNull View layout, @Nullable Bundle savedInstanceState) {
+        editText = layout.findViewById(R.id.edittext);
+        button = layout.findViewById(R.id.toastButton);
+    }
+}
+```
+
+```kotlin Kotlin
+class YourCustomFragment : Fragment() {
+    private var editText: EditText? = null
+    private var button: Button? = null
+
+    override fun getLayout(): Int {
+        return R.layout.fragment_custom_Fragment
+    }
+
+    override fun onLayoutCreated(layout: View, savedInstanceState: Bundle?) {
+        editText = layout.findViewById(R.id.edittext)
+        button = layout.findViewById(R.id.toastButton)
+    }
+}
+```
+</CodeGroup>
+
+### 2. Create a Content Factory
+
+Create a factory class that implements `ChoicelyContentFragmentFactory`. This factory is responsible for providing an instance of your custom content fragment.
+
+<CodeGroup>
+```java Java
+public class YourContentFactory extends ChoicelyContentFragmentFactory {
+    @Nullable
+    @Override
+    protected Fragment makeAppContentFragment(Context context, String type, @Nullable Uri internalUri, Bundle data) {
+        Fragment fragment = null;
+        switch (type) {
+            case "special":
+                final String internalUrl = data.getString(ChoicelyIntentKeys.INTERNAL_URL);
+                if (!TextUtils.isEmpty(internalUrl)) {
+                    final Uri uri = Uri.parse(internalUrl);
+                    if (uri != null) {
+                        final String key = uri.getLastPathSegment();
+                        if (!CTextUtils.isEmpty(key)) {
+                            switch (key) {
+                                case "custom":
+                                    fragment = YourCustomFragment();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+            default:
+                break;
+        }
+        return fragment;
+    }
+}
+```
+
+```kotlin Kotlin
+class YourContentFactory : ChoicelyContentFragmentFactory() {
+
+    override fun makeAppContentFragment(
+        context: Context,
+        type: String,
+        internalUri: Uri?,
+        data: Bundle
+    ): Fragment? {
+        var fragment: Fragment? = null
+
+        when (type) {
+            "special" -> {
+                val internalUrl = data.getString(ChoicelyIntentKeys.INTERNAL_URL)
+                if (!internalUrl.isNullOrEmpty()) {
+                    val uri = Uri.parse(internalUrl)
+                    val key = uri?.lastPathSegment
+                    if (!key.isNullOrEmpty()) {
+                        when (key) {
+                            "custom" -> fragment = YourCustomFragment()
+                        }
+                    }
+                }
+            }
+        }
+
+        return fragment
+    }
+}
+```
+</CodeGroup>
+
+### 3. Register the Factory in Application Class
+
+Finally, in your `Application` class (e.g., `YourApplication.java` or `YourApplication.kt`), add a call to `ChoicelySDK.factory().setContentFactory()` to use your custom Fragment.
+
+<CodeGroup>
+```java Java
+import android.app.Application;
+import com.choicely.sdk.ChoicelySDK;
+
+public class YourApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        .....
+        ChoicelySDK.factory().setContentFactory(new YourContentFactory());
+    }
+}
+```
+
+```kotlin Kotlin
+import android.app.Application
+import com.choicely.sdk.ChoicelySDK
+
+class YourApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        .....
+        ChoicelySDK.factory().setContentFactory(YourContentFactory())
+    }
+}
+```
+</CodeGroup>
+
+### 4. Set the Navigation Path
+
+Define the navigation path in the builder for your custom Fragment.
+
+<Frame>
+  <img src="/images/mobile-sdk/how-to-use-navigation.gif" alt="How to use navigation" />
+</Frame>
+
+```text
+choicely://special/custom
+```

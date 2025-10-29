@@ -1,0 +1,31 @@
+---
+title: "Shop"
+description: "Enable in-app purchases, subscriptions, and paid votes in your Android app"
+icon: "shop"
+---
+
+The Choicely Android SDK provides a Shop module for handling in-app purchases, subscriptions, and paid votes directly inside your application.
+
+## Why Shop?
+
+- **In-App Purchases** – Allow users to buy items, upgrades, or digital content inside your app.
+- **Subscriptions** – Offer recurring subscription plans to give users ongoing access to premium features or content.
+- **Paid Votes** – Monetize voting by enabling users to purchase voting credits, which can be used in competitions or polls.
+
+<Note>
+Shop features must be enabled first in your Choicely project before they can be used in your app.
+</Note>
+
+## Gradle Setup
+
+Add the Choicely Shop SDK dependency in your `build.gradle` file.
+
+```gradle
+implementation(platform("com.choicely.sdk:bom:1.0.5"))
+implementation("com.choicely.sdk:android-core")
+implementation("com.choicely.sdk:android-shop")
+```
+
+## Shop Configuration
+
+Initialize the Shop module in your `Application` class after setting up the Choicely SDK.

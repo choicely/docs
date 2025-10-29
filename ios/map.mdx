@@ -1,0 +1,39 @@
+---
+title: "Map"
+description: "Display locations and interactive maps in your iOS app"
+icon: "map"
+---
+
+## Features
+
+- **Location** – Display user or business locations directly on a map.
+
+- **Interactive Map** – Add markers, zoom, and navigation support within your app.
+
+- **Google Maps Integration** – Leverages the official Google Maps SDK for reliable map rendering and user-friendly experience.
+
+## Add ChoicelyMap to your project
+
+<Note>
+If you haven't added the Choicely SDK to your project yet, please follow the steps in the [Quick start](/ios/quick-start) section.
+</Note>
+
+1. Select your target and go to "General" tab. Click the "+" button on "Frameworks, Libraries, and Embedded Content" section and add ChoicelyMap module.
+
+2. ChoicelyMap requires the GoogleMaps SDK to function. Add it as a dependency to your project:
+   ```
+   https://github.com/googlemaps/ios-maps-sdk.git
+   ```
+
+3. Create map API key by following the steps in [How to create map API key](/resources/map-api) section.
+
+4. Just before `ChoicelySDK.initialize(...)` assign your map API key to `ChoicelySDK.settings.mapApiKey` setting:
+   ```swift
+   ChoicelySDK.settings.mapApiKey = "YOUR_MAP_API_KEY"
+   ```
+
+5. That's it! You're now ready to start using ChoicelyMap features in your project.
+
+<Note>
+To enable In-App Purchases, Subscriptions and Paid Votes functionality go to the next [ChoicelyShop](/ios/shop) section.
+</Note>
