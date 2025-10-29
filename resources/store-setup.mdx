@@ -1,0 +1,37 @@
+---
+title: "Google Play Store Setup"
+description: "Create service account credentials for Google Play integration"
+icon: "shop"
+---
+
+To integrate Google Play with the Choicely Shop SDK, you need to create a Service Account in the Google Cloud Console and enable the required APIs.
+
+## Why Service Account?
+
+- **Secure Communication** – Allows Choicely Platform and your app to access Google Play Developer APIs safely.
+- **Automated Reporting** – Enables fetching purchase and subscription data.
+
+<Note>
+You must have **Admin** or **Owner** access to the Google Play Console project to perform these steps.
+</Note>
+
+## Steps to Create Service Account
+
+1. **Enable APIs:** Go to the [Google Cloud Console](https://console.cloud.google.com/), navigate to **APIs & Services → Library**, and enable the following:
+   - Google Play Developer API
+   - Google Play Developer Reporting API
+
+2. **Create Service Account:** In the **Google Cloud Console → IAM & Admin → Service Accounts**, click **Create Service Account** and provide:
+   - Service account name
+   - Service account ID
+   - Description (optional)
+
+3. **Grant Access:** Assign the role **Service Account User**, then click **Done**.
+
+4. **Create Key:** Open the newly created service account, go to the **Keys** tab, click **Add Key → JSON**. This will download a JSON credentials file.
+
+   <Warning>
+   Keep this file secure – it contains sensitive credentials.
+   </Warning>
+
+5. **Link to Play Console:** Go to [Google Play Console](https://play.google.com/console/), open **Setup → API access**, and link the Service Account to your project.

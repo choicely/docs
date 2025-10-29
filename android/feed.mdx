@@ -1,0 +1,74 @@
+---
+title: "Feed"
+description: "Design and display dynamic feed content in your Android app"
+icon: "rss"
+---
+
+Choicely Feed is a customizable view that allows you to design and display dynamic feed content using the Choicely Builder. Instantly preview and update your feed in the Android app without manual coding for each change.
+
+## 1. Test Feed key
+
+`Your test feed key here`
+
+## 2. Add Fragment
+
+To create a feed view, add the view to your XML layout file:
+
+```xml
+<fragment
+    android:id="@+id/choicely_feed_container"
+    android:layout_width="match_parent"
+    android:name="com.choicely.sdk.activity.feed.ChoicelyFeedFragment"
+    android:layout_height="match_parent"
+    android:background="@color/choicely_black_30"
+    android:layout_marginBottom="50dp"
+/>
+```
+
+## 3. Load the Feed
+
+<CodeGroup>
+```java Java
+// Get the Feed
+ChoicelySDK.data().getFeed("feed key")
+    .onLoadingStarted(() -> {
+        // show loader
+    })
+    .onError((errorCode, message) -> {
+        // on error
+    })
+    .onData(feedData -> {
+        // on success
+        setFeed(feedData);
+    })
+    .load();
+
+// Load the Feed into Fragment
+ChoicelyFeedFragment feedFragment = (ChoicelyFeedFragment)
+    getChildFragmentManager().findFragmentById(R.id.choicely_feed_container);
+if (feedFragment == null) {
+    return;
+}
+feedFragment.setFeed(choicelyFeedData);
+```
+
+```kotlin Kotlin
+// Get the Feed
+ChoicelySDK.data().getFeed("feed key")
+    .onLoadingStarted {
+        // show loader
+    }
+    .onError { errorCode, message ->
+        // on error
+    }
+    .onData { feedData ->
+        // on success
+        setFeed(feedData)
+    }
+    .load()
+
+// Load the Feed into Fragment
+val feedFragment = childFragmentManager.findFragmentById(R.id.choicely_feed_container) as? ChoicelyFeedFragment
+feedFragment?.setFeed(choicelyFeedData)
+```
+</CodeGroup>

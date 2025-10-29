@@ -1,0 +1,114 @@
+---
+title: "Custom View"
+description: "Integrate your own custom views into Choicely SDK for iOS"
+icon: "mobile"
+---
+
+You can easily integrate your own custom views into Choicely SDK.
+
+## Add Custom view to your project
+
+1. Create a class that conforms to `ChoicelyExternalViewControllerFactory` protocol:
+
+   ```swift
+   class YourCustomViewControllerFactory: ChoicelyExternalViewControllerFactory {
+
+       func createViewController(choicelyNavigationitem: ChoicelyNavigationItem?) -> ChoicelyController? {
+           return nil
+       }
+   }
+   ```
+
+2. Declare all your custom views usage inside it's `createViewController()` method:
+
+   <CodeGroup>
+   ```swift UIKit
+   let yourCustomUrl = "choicely://special/your_custom_url"
+   let internalUrl = choicelyNavigationitem?.internalUrl
+
+   if internalUrl.contains(yourCustomUrl) == true {
+     return YourCustomViewController()
+   }
+
+   // In order to return YourCustomViewController make it a subclass of ChoicelyViewController.
+   ```
+
+   ```swift SwiftUI
+   let yourCustomUrl = "choicely://special/your_custom_url"
+   let internalUrl = choicelyNavigationitem?.internalUrl
+
+   if internalUrl.contains(yourCustomUrl) == true {
+     return ChoicelyView { YourCustomView() }
+   }
+
+   // ChoicelyView is a wrapper that will return ChoicelyViewController from any SwiftUI view.
+   ```
+   </CodeGroup>
+
+   <Note>
+   Custom navigation URLs like `"choicely://special/your_custom_url"` can be set and configured in Choicely Studio.
+   </Note>
+
+   This is how you can create custom navigation URLs:
+
+   <Frame>
+     <img src="/images/mobile-sdk/how-to-use-navigation-ios.gif" alt="How to use navigation iOS" />
+   </Frame>
+
+3. Set the custom url, click "Add Navigation" and save the changes by clicking "Update" button in the top right corner.
+
+4. Here is the example of fully configured `ChoicelyExternalViewControllerFactory`:
+
+   <CodeGroup>
+   ```swift UIKit
+   import ChoicelyCore
+
+   class YourCustomViewControllerFactory: ChoicelyExternalViewControllerFactory {
+
+     func createViewController(choicelyNavigationitem: ChoicelyNavigationItem?) -> ChoicelyController? {
+       let yourCustomUrl = "choicely://special/your_custom_url"
+       let internalUrl = choicelyNavigationitem?.internalUrl
+
+       if internalUrl.contains(yourCustomUrl) == true {
+         return YourCustomViewController()
+       }
+
+       return nil
+     }
+   }
+   ```
+
+   ```swift SwiftUI
+   import ChoicelyCore
+
+   class YourCustomViewControllerFactory: ChoicelyExternalViewControllerFactory {
+
+     func createViewController(choicelyNavigationitem: ChoicelyNavigationItem?) -> ChoicelyController? {
+       let yourCustomUrl = "choicely://special/your_custom_url"
+       let internalUrl = choicelyNavigationitem?.internalUrl
+
+       if internalUrl.contains(yourCustomUrl) == true {
+         return ChoicelyView { YourCustomView() }
+       }
+
+       return nil
+     }
+   }
+   ```
+   </CodeGroup>
+
+5. Create an instance of `YourCustomViewControllerFactory` class and just before `ChoicelySDK.initialize(...)` assign it to `ChoicelySDK.settings.externalViewControllerFactory`:
+
+   ```swift
+   ChoicelySDK.settings.externalViewControllerFactory = YourCustomViewControllerFactory()
+   ```
+
+   <Note>
+   To learn more about other ChoicelySDK settings explore them in XCode with `(⌥)+click`.
+   </Note>
+
+6. That's it! You're ready to use your custom views.
+
+   <Info>
+   You can mix Choicely content like `Articles` and `Surveys` with your own UI logic inside one custom view.
+   </Info>

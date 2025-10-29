@@ -1,0 +1,26 @@
+---
+title: "Ads"
+description: "Integrate Google Ads (AdMob) into your Android mobile application"
+icon: "bullhorn"
+---
+
+The Choicely Android SDK provides an Ads module for integrating Google Ads (AdMob) into your mobile application.
+
+## Why Ads?
+
+- **Monetization** – Generate revenue by showing banner ads, interstitials, or rewarded ads in your app.
+- **Google AdMob Integration** – Powered by Google's official mobile ads SDK for high-quality and relevant ad delivery.
+- **Flexible Formats** – Support for multiple ad formats such as native ads, banners, and rewarded ads to maximize user engagement.
+
+<Note>
+Ads must be configured in your Google AdMob account before they can be displayed in your application.
+</Note>
+
+## Gradle Setup
+
+Add the Choicely Ads SDK dependency in your `build.gradle` file.
+
+```gradle
+implementation(platform("com.choicely.sdk:bom:1.0.3"))
+implementation("com.choicely.sdk:android-ad")
+```

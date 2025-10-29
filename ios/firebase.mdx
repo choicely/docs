@@ -1,0 +1,52 @@
+---
+title: "Firebase"
+description: "Enable push notifications, realtime updates, and social login in your iOS app"
+icon: "fire"
+---
+
+## Features
+
+- **Push Notifications** – Firebase Cloud Messaging (FCM) allows the app to send push notifications directly to users, helping you keep them engaged with instant updates, news, or alerts.
+
+- **Realtime Updates** – With Firebase Realtime Database, content and configuration changes can be delivered instantly to your users without requiring an app update. This ensures your app always reflects the latest data.
+
+- **Social Login** – The Choicely SDK integrates with Firebase Authentication to enable sign-in with popular providers such as Google, Facebook, and Apple. This makes it easy for users to log in without creating a separate account.
+
+## Add ChoicelyFirebase to your project
+
+<Note>
+If you haven't added the Choicely SDK to your project yet, please follow the steps in the [Quick start](/ios/quick-start) section.
+</Note>
+
+1. Select your target and go to "General" tab. Click the "+" button on "Frameworks, Libraries, and Embedded Content" section and add `ChoicelyFirebase` module.
+
+2. ChoicelyFirebase depends on the FirebaseUI SDK. Add it to your project as a dependency (version 14.0.0 or later).
+   ```
+   https://github.com/firebase/FirebaseUI-iOS.git
+   ```
+
+   <Note>
+   Some FirebaseUI versions may conflict with other dependencies in your project. Please refer to their [release versions and compatibility](https://github.com/firebase/FirebaseUI-iOS/releases).
+   </Note>
+
+3. Add the next modules from FirebaseUI to your app's target:
+   ```
+   FirebaseAuthUI
+   FirebaseOAuthUI
+   FirebaseGoogleAuthUI
+   FirebasePhoneAuthUI
+   ```
+
+4. Add GoogleService-Info.plist file from your Firebase project. Read the next section to learn how to set it up.
+
+<Warning>
+Once you add the ChoicelyFirebase module to your app, you need to configure the Realtime Updates feature to work with it.
+</Warning>
+
+## Setup Firebase project and enable realtime updates feature
+
+1. To setup a Firebase project and enable realtime updates feature (optional) follow the steps in [How to create Firebase Project](/resources/firebase-project) section.
+
+<Note>
+To enable Interactive Map and Location features go to the next [ChoicelyMap](/ios/map) section.
+</Note>

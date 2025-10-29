@@ -1,16 +1,20 @@
-# Mintlify Starter Kit
+# Choicely Mobile SDK Documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+Official documentation for the Choicely Mobile SDK for Android and iOS. This documentation site is built with Mintlify and contains comprehensive guides, API references, and setup instructions for integrating Choicely into your mobile applications.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Contents
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+This documentation includes:
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+- **Android SDK** - Complete guides for Java and Kotlin integration
+- **iOS SDK** - Swift and UIKit implementation guides
+- **Feature Guides** - Firebase, Maps, In-App Purchases, Ads, Articles, and more
+- **Advanced Customization** - Custom UI components and advanced implementations
+- **Setup Resources** - Third-party service configuration guides
+
+## Migration Notes
+
+This documentation was migrated from the legacy HTML-based documentation system to Mintlify on October 29, 2024. All content from the previous mobile-sdk-documentation repository has been converted to MDX format with enhanced navigation and Mintlify components.
 
 ## Development
 

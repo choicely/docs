@@ -1,0 +1,38 @@
+---
+title: "Google Maps API Key"
+description: "Create and configure Google Maps API key for the Choicely SDK"
+icon: "map"
+---
+
+To use Google Maps with the Choicely SDK, you need to obtain an API key from the Google Cloud Console and configure it in your Android app or iOS app.
+
+## Why API Key?
+
+- **Access Google Maps** – Allows your app to render maps, markers, and interactive location features.
+
+<Note>
+Make sure to enable the required Choicely Maps SDKs for your platform before using the API key.
+</Note>
+
+## Steps to Create API Key
+
+1. **Select Your Project:** Go to the [Google Cloud Console](https://console.cloud.google.com/) and select your project or create a new one.
+
+2. **Enable APIs:** Navigate to **APIs & Services → Library**, search for the required APIs, and enable them:
+   - iOS: Maps SDK for iOS
+   - Android: Maps SDK for Android
+
+3. **Create API Key:** Go to **APIs & Services → Credentials**, click **Create Credentials → API Key**, and fill in the required information.
+
+4. **Restrict API Key (Optional):** Configure app-specific restrictions:
+   - Android: Add package name and SHA-1 fingerprint.
+   - iOS: Add bundle identifier.
+
+   Generate SHA-1 on Android using:
+   ```bash
+   keytool -list -v -keystore /app/info/app_keystore -alias {app_alias} -storepass {password} -keypass {password}
+   ```
+
+5. **Set API Restrictions:** Limit the key to Map-related libraries only.
+
+### Final Step: Use Your Key and Run the App!

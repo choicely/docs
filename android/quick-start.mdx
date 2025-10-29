@@ -1,0 +1,147 @@
+---
+title: "Quick Start"
+description: "Quickly integrate the Choicely Android SDK into your project"
+icon: "rocket"
+---
+
+Quickly integrate the Choicely Android SDK into a fresh project by following these steps. This guide covers repository setup, dependencies, and essential configuration for both Java and Kotlin projects.
+
+## Create A Android Project
+
+Open Android Studio and click New Project to create a new project. Choose your desired project template, for example Empty Activity, and click Next. Now enter your app name and package name.
+
+## Set Java & Kotlin and AGP Version
+
+Make sure to set the Java versions is 17 and Kotlin versions 2.2.10 in your project settings. Also, ensure that you are using the latest version of Android Gradle Plugin (AGP) for optimal compatibility with the Choicely SDK.
+
+## Open Build.gradle (App)
+
+In your project, navigate to the `build.gradle` file located in the app module. This is where you'll add the necessary configurations for the Choicely SDK.
+
+## Set Compile Option
+
+```kotlin
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+}
+kotlinOptions {
+    jvmTarget = "17"
+}
+```
+
+## 1. Add Repository Server
+
+To access the Choicely SDK, you need to add the Maven Central repository to your project. This allows Gradle to fetch the SDK dependencies correctly.
+
+<CodeGroup>
+```groovy Java
+pluginManagement {
+    repositories {
+        ......
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        ......
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+}
+```
+
+```kotlin Kotlin
+pluginManagement {
+    repositories {
+        ......
+        maven(url = "https://jitpack.io")
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        ......
+        maven(url = "https://jitpack.io")
+        mavenCentral()
+    }
+}
+```
+</CodeGroup>
+
+## 2. Add the Choicely SDK
+
+To add the Choicely SDK for Android as a dependency, add the following to your app-level build.gradle file inside the dependencies block.
+
+<CodeGroup>
+```groovy Java
+implementation platform("com.choicely.sdk:bom:1.0.5")
+implementation "com.choicely.sdk:android-core"
+```
+
+```groovy Kotlin
+implementation(platform("com.choicely.sdk:bom:1.0.5"))
+implementation("com.choicely.sdk:android-core")
+```
+</CodeGroup>
+
+## 3. Create Application Class
+
+Create an `Application` class in your project, extend `Application`, and initialize the Choicely SDK inside `onCreate()`. Then, set your application class in the `AndroidManifest.xml` file.
+
+<CodeGroup>
+```java Java
+public class YourApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ChoicelySDK.init(this,APP_KEY);
+    }
+}
+```
+
+```kotlin Kotlin
+class YourApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        ChoicelySDK.init(this,APP_KEY)
+    }
+}
+```
+</CodeGroup>
+
+<Note>
+For testing purposes, you can use the following app key: `Y2hvaWNlbHktZXUvYXBwcy9kS1lHUUtUbWREa1pRb1ltZFRiZQ`
+
+Alternatively, you can create a new app using Choicely Builder: [How to create apps with Choicely](https://www.choicely.com/tutorials/how-to-create-apps-with-choicely-using-an-app-template)
+</Note>
+
+<Frame>
+  <img src="/images/mobile-sdk/how-to-get-app-key.png" alt="Choicely App Key" />
+</Frame>
+
+Here's how to get the app key from the Choicely builder.
+
+### Add application Class in Manifest
+
+```xml
+<application
+    android:name=".YourApplication"
+    ...other attributes...
+>
+    ...
+</application>
+```
+
+<Warning>
+To integrate our Choicely SDK, please ensure that your app does not use a splash Fragment or launcher activity.
+</Warning>
+
+🚀 Boom! You're all set — hit run and watch the magic happen.
+
+<Note>
+For real-time updates, you need to integrate the Choicely Firebase SDKs.
+</Note>
