@@ -20,10 +20,7 @@
               "android/firebase",
               "android/map",
               "android/shop",
-              "android/ad",
-              "android/article",
-              "android/feed",
-              "android/test"
+              "android/ad"
             ]
           },
           {

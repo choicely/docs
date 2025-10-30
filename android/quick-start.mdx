@@ -39,7 +39,6 @@ To access the Choicely SDK, you need to add the Maven Central repository to your
 pluginManagement {
     repositories {
         ......
-        maven { url 'https://jitpack.io' }
         mavenCentral()
     }
 }
@@ -47,7 +46,6 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         ......
-        maven { url 'https://jitpack.io' }
         mavenCentral()
     }
 }
@@ -78,12 +76,12 @@ To add the Choicely SDK for Android as a dependency, add the following to your a
 
 <CodeGroup>
 ```groovy Java
-implementation platform("com.choicely.sdk:bom:1.0.5")
+implementation platform("com.choicely.sdk:bom:1.1.1")
 implementation "com.choicely.sdk:android-core"
 ```
 
 ```groovy Kotlin
-implementation(platform("com.choicely.sdk:bom:1.0.5"))
+implementation(platform("com.choicely.sdk:bom:1.1.1"))
 implementation("com.choicely.sdk:android-core")
 ```
 </CodeGroup>
@@ -137,11 +135,8 @@ Here's how to get the app key from the Choicely builder.
 ```
 
 <Warning>
-To integrate our Choicely SDK, please ensure that your app does not use a splash Fragment or launcher activity.
+    We use our own splash activity to launch the application, so please avoid using a custom splash activity in your app.
 </Warning>
 
 🚀 Boom! You're all set — hit run and watch the magic happen.
 
-<Note>
-For real-time updates, you need to integrate the Choicely Firebase SDKs.
-</Note>
