@@ -58,17 +58,6 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "API",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "index"
-            ]
-          }
-        ]
       }
     ],
     "global": {
