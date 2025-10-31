@@ -89,21 +89,26 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
       "facebook": "https://www.facebook.com/Choicelyapp/",
       "instagram": "https://www.instagram.com/choicelyapp/",
       "linkedin": "https://linkedin.com/company/choicely"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "canonical": "https://docs.choicely.com"
     }
   }
 }
