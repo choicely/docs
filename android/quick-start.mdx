@@ -6,7 +6,7 @@ icon: "rocket"
 
 Quickly integrate the Choicely Android SDK into a fresh project by following these steps. This guide covers repository setup, dependencies, and essential configuration for both Java and Kotlin projects.
 
-## Create A Android Project
+## Create An Android Project
 
 Open Android Studio and click New Project to create a new project. Choose your desired project template, for example Empty Activity, and click Next. Now enter your app name and package name.
 
@@ -35,6 +35,7 @@ kotlinOptions {
 To access the Choicely SDK, you need to add the Maven Central repository to your project. This allows Gradle to fetch the SDK dependencies correctly.
 
 <CodeGroup>
+
 ```groovy Java
 pluginManagement {
     repositories {
@@ -50,6 +51,7 @@ dependencyResolutionManagement {
     }
 }
 ```
+
 
 ```kotlin Kotlin
 pluginManagement {
@@ -68,6 +70,7 @@ dependencyResolutionManagement {
     }
 }
 ```
+
 </CodeGroup>
 
 ## 2. Add the Choicely SDK
@@ -75,15 +78,18 @@ dependencyResolutionManagement {
 To add the Choicely SDK for Android as a dependency, add the following to your app-level build.gradle file inside the dependencies block.
 
 <CodeGroup>
+
 ```groovy Java
 implementation platform("com.choicely.sdk:bom:1.1.1")
 implementation "com.choicely.sdk:android-core"
 ```
 
+
 ```groovy Kotlin
 implementation(platform("com.choicely.sdk:bom:1.1.1"))
 implementation("com.choicely.sdk:android-core")
 ```
+
 </CodeGroup>
 
 ## 3. Create Application Class
@@ -91,6 +97,7 @@ implementation("com.choicely.sdk:android-core")
 Create an `Application` class in your project, extend `Application`, and initialize the Choicely SDK inside `onCreate()`. Then, set your application class in the `AndroidManifest.xml` file.
 
 <CodeGroup>
+
 ```java Java
 public class YourApplication extends Application {
     @Override
@@ -101,6 +108,7 @@ public class YourApplication extends Application {
 }
 ```
 
+
 ```kotlin Kotlin
 class YourApplication : Application() {
     override fun onCreate() {
@@ -109,16 +117,17 @@ class YourApplication : Application() {
     }
 }
 ```
+
 </CodeGroup>
 
 <Note>
-For testing purposes, you can use the following app key: `Y2hvaWNlbHktZXUvYXBwcy9kS1lHUUtUbWREa1pRb1ltZFRiZQ`
+  For testing purposes, you can use the following app key: `Y2hvaWNlbHktZXUvYXBwcy9kS1lHUUtUbWREa1pRb1ltZFRiZQ`
 
-Alternatively, you can create a new app using Choicely Builder: [How to create apps with Choicely](https://www.choicely.com/tutorials/how-to-create-apps-with-choicely-using-an-app-template)
+  Alternatively, you can create a new app using Choicely Builder: [How to create apps with Choicely](https://www.choicely.com/tutorials/how-to-create-apps-with-choicely-using-an-app-template)
 </Note>
 
 <Frame>
-  <img src="/images/mobile-sdk/how-to-get-app-key.png" alt="Choicely App Key" />
+  ![Choicely App Key](/images/mobile-sdk/how-to-get-app-key.png)
 </Frame>
 
 Here's how to get the app key from the Choicely builder.
@@ -135,8 +144,7 @@ Here's how to get the app key from the Choicely builder.
 ```
 
 <Warning>
-    We use our own splash activity to launch the application, so please avoid using a custom splash activity in your app.
+  We use our own splash activity to launch the application, so please avoid using a custom splash activity in your app.
 </Warning>
 
 🚀 Boom! You're all set — hit run and watch the magic happen.
-
