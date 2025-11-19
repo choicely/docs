@@ -1,0 +1,82 @@
+---
+title: "Gemini Usage"
+description: "Use Gemini Cli with the Choicely extension to clone, build, install, and launch the SDK demos via chat."
+icon: "sparkles"
+---
+
+# Choicely Gemini Extension – Conversation Playbook
+
+This guide is for anyone who only wants to talk to Gemini and still get the Choicely demo up and running. Every section tells you exactly what to say, what Gemini will do for you, and what to expect back. Follow the prompts and Gemini selects every tool and command on your behalf.
+
+## Before You Start Talking to Gemini
+- **Install the extension once**: `gemini extensions install <repo-url.git>`. After installation, start your sessions with `gemini` and the Choicely extension loads automatically.
+- **Configure credentials up front**: Populate the extension’s `env` block (in `gemini-extension.json`) with `CHOICELY_DEV_KEY` and `CHOICELY_APP_KEY` *before* installing. The MCP server reads those values at startup and never prompts in chat.
+- **Prepare a workspace**: The extension uses a folder named `choicely-sdk-demo` in your current directory. If that folder already exists, you’ll need to explicitly tell Gemini that it’s OK to replace it.
+- **Devices and emulators**: Gemini lists every connected phone/AVD/simulator and pauses for your confirmation before booting or using one. Simply reply “Yes, start it” or “Use my plugged-in phone” when asked, then the workflow continues automatically.
+
+## Quick Way to Ask
+- Say: “Clone the demo and build/install/launch on Android,” or “Do the same on iOS.” Gemini handles the steps and tools automatically.
+
+## Workflow 1 – Launch the Android Demo
+These five steps take you from nothing to a running Choicely demo on an emulator or real device. Keep the asks simple—“fetch, build, install, launch.” The agent handles targets automatically and only asks you to choose if more than one is available.
+
+### Step 1 – Clone (and Auto-Configure) the Demo Project
+- **Say**: “Download the Choicely SDK demo into my current folder.”
+- **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. With `CHOICELY_APP_KEY` set, it writes the key into both demos automatically.
+![Android clone screenshot](/images/ai/android-step1.png)
+
+### Step 2 – Build the APK
+- **Say**: “Build the Android demo app.”
+- **Expect**: Gemini builds the APK. On failure, it returns the error log.
+![Android build screenshot](/images/ai/android-step2.png)
+
+### Step 3 – Install the Build
+- **Say**: “Install the application on an emulator.”
+- **Expect**: Gemini lists the available devices/AVDs, asks if it should start the recommended one, then installs once you confirm. Afterward it repeats the package name and device ID.
+![Android install screenshot](/images/ai/android-step3.png)
+
+### Step 4 – Launch and Validate
+- **Say**: “Launch the Choicely demo on the emulator.”
+- **Expect**: Gemini opens the app and can capture a screenshot or logs if you ask. It can also force-stop or uninstall on request.
+![Android launch screenshot](/images/ai/android-step4.png)
+![Android validation screenshot](/images/ai/android-step5.png)
+
+## Workflow 2 – Launch the iOS Demo (macOS)
+Mirror the Android flow on macOS. Ask for the outcome; the agent handles simulator selection/boot automatically and only asks you to choose if more than one simulator is available.
+
+### Step 1 – Clone (and Auto-Configure) the Demo Project
+- **Say**: “Download the Choicely SDK demo into the current folder.”
+- **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. With `CHOICELY_APP_KEY` set, it writes the key into both demos automatically.
+![iOS clone screenshot](/images/ai/ios-step1.png)
+
+### Step 2 – Build the iOS Simulator App
+- **Say**: “Build the iOS demo app.”
+- **Expect**: Gemini runs the Xcode build and reports success or the build error log.
+![iOS build screenshot](/images/ai/ios-step2.png)
+
+### Step 3 – Install the Build
+- **Say**: “Install the demo app on a simulator.”
+- **Expect**: Gemini shows the simulator options, asks before booting one, then installs and reports the simulator ID/bundle after you confirm.
+![iOS install screenshot](/images/ai/ios-step3.png)
+
+### Step 4 – Launch and Validate
+- **Say**: “Launch the Choicely demo on that simulator.”
+- **Expect**: Gemini opens the app and can capture a screenshot or logs if you ask. It can also terminate or uninstall on request.
+![iOS launch screenshot](/images/ai/ios-step4.png)
+
+## Workflow 3 – Adjust the Demo After It’s Running
+With the app installed, keep talking to Gemini to change visuals, navigation, and content while Gemini updates everything for you.
+
+### Visual Tweaks
+- **Say**: “Make the app toolbar background black,” or “Set the bottom nav background to black and text to white.”
+- **Expect**: Gemini updates the areas you mention (toolbar, bottom nav, etc.) and tells you what it applied.
+
+### Navigation Shortcuts
+- **Say**: “Add a bottom navigation button called ‘Game’ that opens `https://studio--noughts-and-crosses-lqfmy.us-central1.hosted.app` and place it third in the list.”
+- **Expect**: Gemini updates the nav order everywhere (default nav plus screen-level navs) and tells you the result so you know where the button ended up.
+
+### Content Publishing
+- **New feed**: "Create a feed called 'Behind the Scenes' and attach it to the menu navigation."
+- **Article**: "Publish an article titled 'Top 5 Moments' with two paragraphs of text and attach it to that feed."
+- **Style updates**: "Restyle that feed with a light background and dark text," or "Restyle that article with a light background and dark text plus an orange accent."
+- **Expect**: Gemini creates feeds with transparent background by default, then you can style them separately. Gemini replies with the keys or identifiers of anything it created so you can refer to them later ("Use that feed you just created…").
