@@ -9,7 +9,7 @@ icon: "sparkles"
 This guide is for anyone who only wants to talk to Gemini and still get the Choicely demo up and running. Every section tells you exactly what to say, what Gemini will do for you, and what to expect back. Follow the prompts and Gemini selects every tool and command on your behalf.
 
 ## Before You Start Talking to Gemini
-- **Clone the extension repo locally**: `git clone <repo-url.git> choicely-gemini-extension` (or similar) so you can edit the configuration before installing.
+- **Clone the extension repo locally**: `git clone https://github.com/choicely/choicely-gemini-cli-extension.git choicely-gemini-extension` (or similar) so you can edit the configuration before installing.
 - **Configure credentials up front**: Inside that folder, update the `env` block in `gemini-extension.json` with `CHOICELY_DEV_KEY` and `CHOICELY_APP_KEY` *before* installing. The MCP server reads those values on startup and never prompts in chat.
 - **Install from your local clone**: Run `gemini extensions install ./choicely-gemini-extension` (or the path you cloned to). After installation, start sessions with `gemini` and the Choicely extension loads automatically.
 - **Prepare a workspace**: The extension uses a folder named `choicely-sdk-demo` in your current directory. If that folder already exists, you’ll need to explicitly tell Gemini that it’s OK to replace it.
