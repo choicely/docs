@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Mobile",
+        "tab": "SDK",
         "groups": [
           {
             "group": "Android",
@@ -50,6 +50,17 @@
               "resources/firebase-project",
               "resources/map-api",
               "resources/store-setup"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Gemini CLI",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "AI/gemini-usage"
             ]
           }
         ]
