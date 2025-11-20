@@ -11,6 +11,7 @@ This guide is for anyone who only wants to talk to Gemini and still get the Choi
 ## Before You Start Talking to Gemini
 - **Clone the extension repo locally**: `git clone https://github.com/choicely/choicely-gemini-cli-extension.git choicely-gemini-extension` (or similar) so you can edit the configuration before installing.
 - **Configure credentials up front**: Inside that folder, update the `env` block in `gemini-extension.json` with `CHOICELY_DEV_KEY` and `CHOICELY_APP_KEY` *before* installing. The MCP server reads those values on startup and never prompts in chat.
+- Developer API key can be found from Choicely studio "Manage account" -> "API access". Add all permissions to the key. App key can be found in the "Apps" section by selecting your application and copying the app key from top left corner.
 - **Install from your local clone**: Run `gemini extensions install ./choicely-gemini-extension` (or the path you cloned to). After installation, start sessions with `gemini` and the Choicely extension loads automatically.
 - **Prepare a workspace**: The extension uses a folder named `choicely-sdk-demo` in your current directory. If that folder already exists, you’ll need to explicitly tell Gemini that it’s OK to replace it.
 - **Devices and emulators**: Gemini lists every connected phone/AVD/simulator and pauses for your confirmation before booting or using one. Simply reply “Yes, start it” or “Use my plugged-in phone” when asked, then the workflow continues automatically.
