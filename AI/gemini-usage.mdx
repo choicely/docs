@@ -25,23 +25,23 @@ These five steps take you from nothing to a running Choicely demo on an emulator
 ### Step 1 – Clone (and Auto-Configure) the Demo Project
 - **Say**: “Download the Choicely SDK demo into my current folder.”
 - **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. With `CHOICELY_APP_KEY` set, it writes the key into both demos automatically.
-![Android clone screenshot](/images/ai/android-step1.png)
+![Android clone screenshot](/images/AI/android-step1.png)
 
 ### Step 2 – Build the APK
 - **Say**: “Build the Android demo app.”
 - **Expect**: Gemini builds the APK. On failure, it returns the error log.
-![Android build screenshot](/images/ai/android-step2.png)
+![Android build screenshot](/images/AI/android-step2.png)
 
 ### Step 3 – Install the Build
 - **Say**: “Install the application on an emulator.”
 - **Expect**: Gemini lists the available devices/AVDs, asks if it should start the recommended one, then installs once you confirm. Afterward it repeats the package name and device ID.
-![Android install screenshot](/images/ai/android-step3.png)
+![Android install screenshot](/images/AI/android-step3.png)
 
 ### Step 4 – Launch and Validate
 - **Say**: “Launch the Choicely demo on the emulator.”
 - **Expect**: Gemini opens the app and can capture a screenshot or logs if you ask. It can also force-stop or uninstall on request.
-![Android launch screenshot](/images/ai/android-step4.png)
-![Android validation screenshot](/images/ai/android-step5.png)
+![Android launch screenshot](/images/AI/android-step4.png)
+![Android validation screenshot](/images/AI/android-step5.png)
 
 ## Workflow 2 – Launch the iOS Demo (macOS)
 Mirror the Android flow on macOS. Ask for the outcome; the agent handles simulator selection/boot automatically and only asks you to choose if more than one simulator is available.
@@ -49,22 +49,22 @@ Mirror the Android flow on macOS. Ask for the outcome; the agent handles simulat
 ### Step 1 – Clone (and Auto-Configure) the Demo Project
 - **Say**: “Download the Choicely SDK demo into the current folder.”
 - **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. With `CHOICELY_APP_KEY` set, it writes the key into both demos automatically.
-![iOS clone screenshot](/images/ai/ios-step1.png)
+![iOS clone screenshot](/images/AI/ios-step1.png)
 
 ### Step 2 – Build the iOS Simulator App
 - **Say**: “Build the iOS demo app.”
 - **Expect**: Gemini runs the Xcode build and reports success or the build error log.
-![iOS build screenshot](/images/ai/ios-step2.png)
+![iOS build screenshot](/images/AI/ios-step2.png)
 
 ### Step 3 – Install the Build
 - **Say**: “Install the demo app on a simulator.”
 - **Expect**: Gemini shows the simulator options, asks before booting one, then installs and reports the simulator ID/bundle after you confirm.
-![iOS install screenshot](/images/ai/ios-step3.png)
+![iOS install screenshot](/images/AI/ios-step3.png)
 
 ### Step 4 – Launch and Validate
 - **Say**: “Launch the Choicely demo on that simulator.”
 - **Expect**: Gemini opens the app and can capture a screenshot or logs if you ask. It can also terminate or uninstall on request.
-![iOS launch screenshot](/images/ai/ios-step4.png)
+![iOS launch screenshot](/images/AI/ios-step4.png)
 
 ## Workflow 3 – Adjust the Demo After It’s Running
 With the app installed, keep talking to Gemini to change visuals, navigation, and content while Gemini updates everything for you.
