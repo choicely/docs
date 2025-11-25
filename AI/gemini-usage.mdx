@@ -11,12 +11,12 @@ icon: "sparkles"
 This guide is for anyone who only wants to talk to Gemini and still get the Choicely demo up and running. Every section tells you exactly what to say, what Gemini will do for you, and what to expect back. Follow the prompts and Gemini selects every tool and command on your behalf.
 
 ## Before You Start Talking to Gemini
-- **Clone the extension repo locally**: `git clone https://github.com/choicely/choicely-gemini-cli-extension.git choicely-gemini-extension` (or similar) so you can edit the configuration before installing.
-- **Configure credentials up front**: Inside that folder, update the `env` block in `gemini-extension.json` with `CHOICELY_DEV_KEY` and `CHOICELY_APP_KEY` *before* installing. The MCP server reads those values on startup and never prompts in chat.
-- Developer API key can be found from Choicely studio "Manage account" -> "API access". Add all permissions to the key. App key can be found in the "Apps" section by selecting your application and copying the app key from top left corner.
-- **Install from your local clone**: Run `gemini extensions install ./choicely-gemini-extension` (or the path you cloned to). After installation, start sessions with `gemini` and the Choicely extension loads automatically.
-- **Prepare a workspace**: The extension uses a folder named `choicely-sdk-demo` in your current directory. If that folder already exists, you’ll need to explicitly tell Gemini that it’s OK to replace it.
-- **Devices and emulators**: Gemini lists every connected phone/AVD/simulator and pauses for your confirmation before booting or using one. Simply reply “Yes, start it” or “Use my plugged-in phone” when asked, then the workflow continues automatically.
+- **Install/update Gemini CLI**: Run `npm install -g @google/gemini-cli`.
+- **Install the extension**: Run `gemini extensions install https://github.com/choicely/choicely-gemini-cli-extension.git`.
+  - You will be prompted to enter variables like `CHOICELY_APP_KEY`, `JAVA_HOME`, and `ANDROID_HOME`.
+  - **Note**: If you leave `CHOICELY_APP_KEY` empty (press Enter to skip), the extension will still install and the app will work fine, but it will show the preconfigured demo app instead of your app. You can provide the key later in the chat (e.g., "Configure the app key to be `<your-key>`").
+- **Prepare a workspace**: The extension uses a folder named `choicely-sdk-demo` in your current directory.
+- **Devices and emulators**: Gemini lists every connected phone/AVD/simulator and pauses for your confirmation before booting or using one.
 
 ## Quick Way to Ask
 - Say: “Clone the demo and build/install/launch on Android,” or “Do the same on iOS.” Gemini handles the steps and tools automatically.
@@ -26,7 +26,7 @@ These five steps take you from nothing to a running Choicely demo on an emulator
 
 ### Step 1 – Clone (and Auto-Configure) the Demo Project
 - **Say**: “Download the Choicely SDK demo into my current folder.”
-- **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. With `CHOICELY_APP_KEY` set, it writes the key into both demos automatically.
+- **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. If you haven't set `CHOICELY_APP_KEY`, it will ask you for it or you can provide it now.
 ![Android clone screenshot](/images/AI/android-step1.png)
 
 ### Step 2 – Build the APK
@@ -50,7 +50,7 @@ Mirror the Android flow on macOS. Ask for the outcome; the agent handles simulat
 
 ### Step 1 – Clone (and Auto-Configure) the Demo Project
 - **Say**: “Download the Choicely SDK demo into the current folder.”
-- **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. With `CHOICELY_APP_KEY` set, it writes the key into both demos automatically.
+- **Expect**: Gemini clones (or refreshes if you’ve allowed overwrite) and returns the repo path. If you haven't set `CHOICELY_APP_KEY`, it will ask you for it or you can provide it now.
 ![iOS clone screenshot](/images/AI/ios-step1.png)
 
 ### Step 2 – Build the iOS Simulator App
@@ -68,19 +68,10 @@ Mirror the Android flow on macOS. Ask for the outcome; the agent handles simulat
 - **Expect**: Gemini opens the app and can capture a screenshot or logs if you ask. It can also terminate or uninstall on request.
 ![iOS launch screenshot](/images/AI/ios-step4.png)
 
-## Workflow 3 – Adjust the Demo After It’s Running
-With the app installed, keep talking to Gemini to change visuals, navigation, and content while Gemini updates everything for you.
+## Troubleshooting / FAQ
 
-### Visual Tweaks
-- **Say**: “Make the app toolbar background black,” or “Set the bottom nav background to black and text to white.”
-- **Expect**: Gemini updates the areas you mention (toolbar, bottom nav, etc.) and tells you what it applied.
+### Where do I find my App Key?
+In Choicely Studio, go to the "Apps" section, select your application, and copy the App Key (UUID) from the top left corner.
 
-### Navigation Shortcuts
-- **Say**: “Add a bottom navigation button called ‘Game’ that opens `https://studio--noughts-and-crosses-lqfmy.us-central1.hosted.app` and place it third in the list.”
-- **Expect**: Gemini updates the nav order everywhere (default nav plus screen-level navs) and tells you the result so you know where the button ended up.
-
-### Content Publishing
-- **New feed**: "Create a feed called 'Behind the Scenes' and attach it to the menu navigation."
-- **Article**: "Publish an article titled 'Top 5 Moments' with two paragraphs of text and attach it to that feed."
-- **Style updates**: "Restyle that feed with a light background and dark text," or "Restyle that article with a light background and dark text plus an orange accent."
-- **Expect**: Gemini creates feeds with transparent background by default, then you can style them separately. Gemini replies with the keys or identifiers of anything it created so you can refer to them later ("Use that feed you just created…").
+### Can I ask questions about the SDK?
+Yes! You can ask things like "How do I customize the view factory?" or "How to set up push notifications?" and Gemini will search the Choicely Mobile SDK documentation for answers.
