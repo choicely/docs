@@ -60,7 +60,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "AI/gemini-usage"
+              "AI/gemini-cli-playbook"
             ]
           }
         ]
