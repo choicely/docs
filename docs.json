@@ -77,6 +77,11 @@
           "anchor": "Website",
           "href": "https://www.choicely.com",
           "icon": "globe"
+        },
+        {
+          "anchor": "Github Demo Project",
+          "href": "https://github.com/choicely/choicely-sdk-demo",
+          "icon": "github"
         }
       ]
     }
