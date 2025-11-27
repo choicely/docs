@@ -13,6 +13,7 @@ This guide is for anyone who only wants to talk to Gemini and still get the Choi
 - **Install the extension**: Run `gemini extensions install https://github.com/choicely/choicely-gemini-cli-extension.git`.
   - You will be prompted to enter variables like `CHOICELY_APP_KEY`, `JAVA_HOME`, and `ANDROID_HOME`.
   - **Note**: If you leave `CHOICELY_APP_KEY` empty (press Enter to skip), the extension will still install and the app will work fine, but it will show the preconfigured demo app instead of your app. You can provide the key later in the chat (e.g., "Configure the app key to be `<your-key>`").
+  - **Note**: If you don't have `JAVA_HOME` or `ANDROID_HOME` set, don't worry! The extension can automatically download the necessary SDKs for you.
 - **Prepare a workspace**: The extension uses a folder named `choicely-sdk-demo` in your current directory.
 - **Devices and emulators**: Gemini lists every connected phone/AVD/simulator and pauses for your confirmation before booting or using one.
 
@@ -30,11 +31,13 @@ These five steps take you from nothing to a running Choicely demo on an emulator
 ### Step 2 – Build the APK
 - **Say**: “Build the Android demo app.”
 - **Expect**: Gemini builds the APK. On failure, it returns the error log.
+  - **If the build fails due to missing Java/Android SDK**: Say "Install Android dependencies" to have Gemini fix it automatically.
 ![Android build screenshot](/images/AI/android-step2.png)
 
 ### Step 3 – Install the Build
 - **Say**: “Install the application on an emulator.”
 - **Expect**: Gemini lists the available devices/AVDs, asks if it should start the recommended one, then installs once you confirm. Afterward it repeats the package name and device ID.
+  - **Note**: If you need a new emulator, say "Install dependencies with emulator support" to download the emulator binaries.
 ![Android install screenshot](/images/AI/android-step3.png)
 
 ### Step 4 – Launch and Validate
