@@ -41,7 +41,8 @@
           {
             "group": "iOS Advanced",
             "pages": [
-              "ios-advanced/custom-view"
+              "ios-advanced/custom-view",
+              "ios-advanced/react-native"
             ]
           },
           {
