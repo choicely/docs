@@ -117,6 +117,38 @@ await Linking.openURL('choicely://feed/your-feed-key')
 Replace `your-article-key`, `your-contest-key`, and `your-feed-key` with the actual content keys from Choicely Studio. You can find these keys in the content settings for each article, contest, or feed.
 </Note>
 
+### Passing Parameters to React Native Modules
+
+You can pass data to your React Native modules using query parameters. These parameters will be automatically converted to props and passed to your component.
+
+```javascript
+// Pass a single parameter
+await Linking.openURL('choicely://special/rn/news-article?articleId=12345')
+
+// Pass multiple parameters
+await Linking.openURL('choicely://special/rn/news-article?articleId=12345&highlight=true&section=sports')
+```
+
+Your React Native component will receive these as props:
+
+```javascript
+export default function NewsArticle(props) {
+  console.log(props.articleId)  // "12345"
+  console.log(props.highlight)  // "true"
+  console.log(props.section)    // "sports"
+
+  return (
+    <View>
+      <Text>Article ID: {props.articleId}</Text>
+    </View>
+  )
+}
+```
+
+<Info>
+Query parameter values are always passed as strings. Convert them to the appropriate type in your component if needed (e.g., `const id = Number(props.articleId)`).
+</Info>
+
 ### Check if URL can be opened
 
 Before opening a URL, you can check if the URL scheme is supported:
@@ -169,11 +201,17 @@ export default function NavigationExample() {
     await Linking.openURL('choicely://feed/your-feed-key')
   }
 
+  const openNewsWithParams = async () => {
+    // Open another RN module with parameters
+    await Linking.openURL('choicely://special/rn/news-detail?articleId=12345&source=home')
+  }
+
   return (
     <View>
       <Button title="Open Article" onPress={openArticle} />
       <Button title="Open Contest" onPress={openContest} />
       <Button title="Open Feed" onPress={openFeed} />
+      <Button title="Open News (with params)" onPress={openNewsWithParams} />
     </View>
   )
 }
