@@ -1,0 +1,222 @@
+---
+title: "React Native Support"
+description: "Integrate React Native content and enable URL navigation from JavaScript"
+icon: "react"
+---
+
+## Add React Native Module
+
+To display React Native content within your Choicely app, you need to add the `ChoicelyReactNative` module.
+
+1. In Xcode, with your app project open, navigate to **File > Add Packages**.
+
+2. Add the Choicely SDK repository if you haven't already:
+   ```
+   https://github.com/choicely/choicely-sdk-ios.git
+   ```
+
+3. Select the `ChoicelyReactNative` module in addition to `ChoicelyCore`.
+
+## Enable URL Navigation from React Native
+
+To allow React Native JavaScript code to open Choicely content using `Linking.openURL()`, you need to register a custom URL scheme and forward URLs to the SDK.
+
+### 1. Register URL Scheme
+
+Add the `choicely` URL scheme to your app's Info.plist:
+
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>choicely</string>
+        </array>
+    </dict>
+</array>
+```
+
+### 2. Handle URLs in AppDelegate
+
+Forward incoming URLs to the SDK by implementing the URL handler in your AppDelegate:
+
+<CodeGroup>
+```swift UIKit
+import ChoicelyCore
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        ChoicelySDK.initialize(
+            application: application,
+            appKey: "YOUR_APP_KEY"
+        )
+        return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return ChoicelySDK.handleOpenURL(url)
+    }
+}
+```
+
+```swift SwiftUI
+import SwiftUI
+import ChoicelyCore
+
+@main
+struct YourApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    var body: some Scene {
+        WindowGroup {
+            ChoicelySplashView()
+        }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        ChoicelySDK.initialize(
+            application: application,
+            appKey: "YOUR_APP_KEY"
+        )
+        return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        return ChoicelySDK.handleOpenURL(url)
+    }
+}
+```
+</CodeGroup>
+
+## Using Linking.openURL in React Native
+
+Once configured, your React Native JavaScript code can open any Choicely content using the `Linking` API:
+
+```javascript
+import { Linking } from 'react-native'
+
+// Open a React Native module (module name configured in Choicely Studio)
+await Linking.openURL('choicely://special/rn/your-module-name?message=testing')
+
+// Open an article (using the article's content key)
+await Linking.openURL('choicely://article/your-article-key')
+
+// Open a contest (using the contest's content key)
+await Linking.openURL('choicely://contest/your-contest-key')
+
+// Open a feed (using the feed's content key)
+await Linking.openURL('choicely://feed/your-feed-key')
+```
+
+<Note>
+Replace `your-article-key`, `your-contest-key`, and `your-feed-key` with the actual content keys from Choicely Studio. You can find these keys in the content settings for each article, contest, or feed.
+</Note>
+
+### Passing Parameters to React Native Modules
+
+You can pass data to your React Native modules using query parameters. These parameters will be automatically converted to props and passed to your component.
+
+```javascript
+// Pass a single parameter
+await Linking.openURL('choicely://special/rn/news-article?articleId=12345')
+
+// Pass multiple parameters
+await Linking.openURL('choicely://special/rn/news-article?articleId=12345&highlight=true&section=sports')
+```
+
+Your React Native component will receive these as props:
+
+```javascript
+export default function NewsArticle(props) {
+  console.log(props.articleId)  // "12345"
+  console.log(props.highlight)  // "true"
+  console.log(props.section)    // "sports"
+
+  return (
+    <View>
+      <Text>Article ID: {props.articleId}</Text>
+    </View>
+  )
+}
+```
+
+<Info>
+Query parameter values are always passed as strings. Convert them to the appropriate type in your component if needed (e.g., `const id = Number(props.articleId)`).
+</Info>
+
+### Check if URL can be opened
+
+Before opening a URL, you can check if the URL scheme is supported:
+
+```javascript
+const canOpen = await Linking.canOpenURL('choicely://special/rn/your-module-name')
+
+if (canOpen) {
+  await Linking.openURL('choicely://special/rn/your-module-name')
+} else {
+  console.log('URL scheme not supported')
+}
+```
+
+## Supported URL Formats
+
+The SDK supports the following internal URL formats:
+
+- `choicely://special/rn/<module-name>` - Opens a React Native module
+- `choicely://article/<content-key>` - Opens an article
+- `choicely://contest/<content-key>` - Opens a contest
+- `choicely://feed/<content-key>` - Opens a feed
+- And other Choicely content types
+
+<Note>
+All content keys (`<content-key>`) are unique identifiers created in Choicely Studio. You can find the key for each piece of content in its settings page.
+</Note>
+
+## Example: Navigation from React Native
+
+Here's a complete example of navigating between different Choicely content types from React Native:
+
+```javascript
+import React from 'react'
+import { View, Button, Linking } from 'react-native'
+
+export default function NavigationExample() {
+  const openArticle = async () => {
+    // Replace with your actual article key from Choicely Studio
+    await Linking.openURL('choicely://article/your-article-key')
+  }
+
+  const openContest = async () => {
+    // Replace with your actual contest key from Choicely Studio
+    await Linking.openURL('choicely://contest/your-contest-key')
+  }
+
+  const openFeed = async () => {
+    // Replace with your actual feed key from Choicely Studio
+    await Linking.openURL('choicely://feed/your-feed-key')
+  }
+
+  const openNewsWithParams = async () => {
+    // Open another RN module with parameters
+    await Linking.openURL('choicely://special/rn/news-detail?articleId=12345&source=home')
+  }
+
+  return (
+    <View>
+      <Button title="Open Article" onPress={openArticle} />
+      <Button title="Open Contest" onPress={openContest} />
+      <Button title="Open Feed" onPress={openFeed} />
+      <Button title="Open News (with params)" onPress={openNewsWithParams} />
+    </View>
+  )
+}
+```
+
+<Info>
+This navigation system allows you to seamlessly integrate React Native content with native Choicely content, creating a unified user experience.
+</Info>
