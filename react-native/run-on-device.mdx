@@ -1,0 +1,126 @@
+---
+title: "Run on Device"
+description: "Build and run React Native components on iOS and Android devices"
+icon: "mobile"
+---
+
+## Start Metro
+
+Metro is the JavaScript bundler for React Native. Start it before running debug builds:
+
+```bash
+npm start
+```
+
+Metro listens on port **8932** by default (configured via `RCT_METRO_PORT` in `default.env`).
+
+<Info>
+Metro must be running for debug builds. Release builds bundle the JavaScript and don't need Metro.
+</Info>
+
+## iOS
+
+### Setup
+
+Run the setup script from the **project root** the first time, and again after dependency changes:
+
+```bash
+ios/scripts/setup.sh
+```
+
+This installs npm packages, configures Ruby/Bundler, and runs `pod install`.
+
+### Build and run
+
+1. Open `ios/sdk-ios-demo.xcworkspace` in Xcode.
+2. Select your target device or simulator.
+3. Press **Cmd+R** to build and run.
+
+<Note>
+Always open the `.xcworkspace` file, not the `.xcodeproj`. The workspace includes CocoaPods dependencies.
+</Note>
+
+## Android
+
+### Setup
+
+```bash
+npm install
+```
+
+Then open the `android/` directory in Android Studio.
+
+### Build and run
+
+1. Let Gradle sync finish (this happens automatically on first open).
+2. Select your target device or emulator.
+3. Click **Run** (or press **Ctrl+R**).
+
+<Info>
+Gradle automatically runs `adb reverse` to forward the Metro port from the device to your machine. No manual port forwarding needed.
+</Info>
+
+## Build types
+
+| | Debug | Release |
+|---|---|---|
+| **JavaScript** | Loaded from Metro (live reload) | Bundled into the app binary |
+| **Metro required** | Yes | No |
+| **Use case** | Development | Production / testing |
+
+To create release bundles manually:
+
+```bash
+# iOS
+npm run bundle:ios
+
+# Android
+npm run bundle:android
+```
+
+## Environment configuration
+
+The project reads configuration from environment files in this order:
+
+1. `default.env` — Checked into the repo with sensible defaults.
+2. `.env` — Your local overrides (git-ignored).
+
+Key variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `CHOICELY_APP_KEY` | Demo app key | Your app key from Choicely Studio |
+| `RCT_METRO_PORT` | `8932` | Metro bundler port |
+| `CHOICELY_API_BASE` | `https://cloud.choicely.com` | Choicely API endpoint |
+
+## Troubleshooting
+
+### Metro not connecting
+
+- Make sure Metro is running (`npm start`).
+- **iOS simulator**: Should connect automatically.
+- **Android emulator**: Gradle runs `adb reverse` automatically. If it doesn't work, run manually:
+  ```bash
+  adb reverse tcp:8932 tcp:8932
+  ```
+- **Physical device**: Ensure your device and computer are on the same Wi-Fi network.
+
+### Pod install fails
+
+Re-run the full setup script to start from a clean state:
+
+```bash
+ios/scripts/setup.sh
+```
+
+If issues persist, clear Xcode's derived data:
+
+```bash
+rm -rf ios/.build/DerivedData-iOS
+```
+
+### Component not found
+
+- Verify the component is added to `componentMapping` in `rn/src/index.js`.
+- Confirm the key matches the URL path exactly (e.g. `my_component` for `choicely://special/rn/my_component`).
+- Restart Metro after adding new components.

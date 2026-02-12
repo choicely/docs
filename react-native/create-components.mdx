@@ -1,0 +1,121 @@
+---
+title: "Create Components"
+description: "Write React Native components, register them, and configure them in Choicely Studio"
+icon: "react"
+---
+
+## Create a component
+
+Add a new `.jsx` file in `rn/src/components/`. Each component must use a **default export** and receives props from URL query parameters.
+
+Here's the included `Hello.jsx` as a reference:
+
+```jsx
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+
+export default function Hello({ message = 'Choicely' }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Hello from {message}!</Text>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 18,
+  },
+})
+```
+
+## Register the component
+
+Open `rn/src/index.js` and add your component to the `componentMapping` object:
+
+```javascript
+export const componentMapping = {
+  hello: () => require('./components/Hello'),
+  counter: () => require('./components/Counter'),
+  tic_tac_toe: () => require('./components/TicTacToe'),
+  // Add your component here:
+  my_component: () => require('./components/MyComponent'),
+}
+```
+
+The key (e.g. `my_component`) becomes the name used in the URL scheme.
+
+<Warning>
+Each component must have a `default export`. The framework will show an error screen if the default export is missing.
+</Warning>
+
+## Passing props via URL
+
+Query parameters in the URL are automatically passed as props to your component:
+
+```
+choicely://special/rn/hello?message=Alice
+```
+
+This renders the `hello` component with `{ message: "Alice" }` as props.
+
+Multiple parameters work the same way:
+
+```
+choicely://special/rn/counter?start=10
+```
+
+<Info>
+All query parameter values are passed as **strings**. Convert them to the appropriate type in your component if needed (e.g. `Number(props.start)`).
+</Info>
+
+## Root options
+
+You can export a `rootOptions` object from your component module to control how the framework wraps it:
+
+```javascript
+export const rootOptions = {
+  disableScrollView: true,
+}
+
+export default function MyComponent() {
+  // This component manages its own scrolling
+}
+```
+
+| Option | Type | Description |
+|---|---|---|
+| `disableScrollView` | `boolean` | Set to `true` if your component manages its own scroll behavior (e.g. uses `FlatList` or `ScrollView` internally). |
+
+## Configure in Choicely Studio
+
+To make your component accessible in the app:
+
+1. Open your app in [Choicely Studio](https://studio.choicely.com).
+2. Navigate to the screen where you want to add the component.
+3. Set the navigation item URL to:
+
+```
+choicely://special/rn/<name>
+```
+
+Replace `<name>` with the key from `componentMapping` (e.g. `hello`, `counter`, `my_component`).
+
+## Navigate between components
+
+Your React Native components can navigate to other Choicely content using `Linking.openURL()`. See the [iOS React Native Support](/ios-advanced/react-native#using-linkingopenurl-in-react-native) page for the full URL scheme reference and examples.
+
+## Included examples
+
+The project ships with these example components:
+
+| Name | File | Description |
+|---|---|---|
+| `hello` | `Hello.jsx` | Simple greeting that accepts a `message` prop |
+| `counter` | `Counter.jsx` | Tap counter with persistent storage (MMKV) and a `start` prop |
+| `tic_tac_toe` | `TicTacToe.jsx` | Two-player Tic Tac Toe game |

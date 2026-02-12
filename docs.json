@@ -19,14 +19,15 @@
               "android/quick-start",
               "android/firebase",
               "android/map",
-              "android/shop"
-            ]
-          },
-          {
-            "group": "Android Advanced",
-            "pages": [
-              "android-advanced/custom-splash",
-              "android-advanced/custom-fragment"
+              "android/shop",
+              {
+                "group": "Advanced",
+                "expanded": true,
+                "pages": [
+                  "android-advanced/custom-splash",
+                  "android-advanced/custom-fragment"
+                ]
+              }
             ]
           },
           {
@@ -35,14 +36,23 @@
               "ios/quick-start",
               "ios/firebase",
               "ios/map",
-              "ios/shop"
+              "ios/shop",
+              {
+                "group": "Advanced",
+                "expanded": true,
+                "pages": [
+                  "ios-advanced/custom-view",
+                  "ios-advanced/react-native"
+                ]
+              }
             ]
           },
           {
-            "group": "iOS Advanced",
+            "group": "React Native",
             "pages": [
-              "ios-advanced/custom-view",
-              "ios-advanced/react-native"
+              "react-native/quick-start",
+              "react-native/create-components",
+              "react-native/run-on-device"
             ]
           },
           {
