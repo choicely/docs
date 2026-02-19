@@ -1,0 +1,360 @@
+---
+title: "React Native Support"
+description: "Integrate a React Native module into an existing native Android project"
+icon: "atom"
+---
+
+# Adding React Native Module to an Android Project
+
+This guide explains how to integrate a React Native module (`app-react-native`) into an existing native Android project.
+
+## Gradle Setup
+
+Add the Choicely React Native SDK dependency in your `build.gradle` file.
+
+```gradle
+implementation(platform("com.choicely.sdk:bom:1.1.1"))
+implementation("com.choicely.sdk:android-core")
+implementation("com.choicely.sdk:android-rn:0.0.1")
+```
+
+## Project Structure
+
+| Path | Description |
+|---|---|
+| `Android/Java/` | Android project root (`rootDir`) |
+| `app/` | Native Android app module |
+| `app/build.gradle` | App-level build file |
+| `app-react-native/` | React Native module |
+| `app-react-native/node_modules/` | All RN dependencies live here |
+| `app-react-native/package.json` | RN package config |
+| `app-react-native/react-native.config.js` | RN CLI config |
+| `build.gradle` | Root build file |
+| `settings.gradle` | Gradle settings |
+| `gradle.properties` | Gradle properties |
+
+## Prerequisites
+
+- Node.js >= 20
+- React Native 0.82+
+- Android SDK with CMake
+
+---
+
+## Setup
+
+### Step 1 — Create the React Native Module
+
+Create a new folder called `app-react-native` in your Android project root directory.
+
+```bash
+mkdir app-react-native
+```
+
+Then create a `package.json` file inside `app-react-native/` with the following content:
+
+```json
+{
+  "name": "choicely-rn",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start --config rn/metro.config.js --host 0.0.0.0",
+    "lint": "eslint . && npm run lint:bridge",
+    "lint:bridge": "node ./tools/lint-bridge-events.js",
+    "web": "webpack-dev-server --config ./rn/web/webpack.config.js --mode development",
+    "bundle:android": "rm -rf dist/android && mkdir -p dist/android && react-native bundle --config rn/metro.config.js --platform android --dev false --entry-file src/index.js --assets-dest dist/android --bundle-output dist/android/index.android.bundle",
+    "bundle:ios": "rm -rf dist/ios && mkdir -p dist/ios && react-native bundle --config rn/metro.config.js --platform ios --dev false --entry-file src/index.js --assets-dest dist/ios --bundle-output dist/ios/main.jsbundle",
+    "bundle:web": "rm -rf dist/web && mkdir -p dist/web && webpack --no-watch --watch-options-stdin --no-color --no-devtool --config ./rn/web/webpack.config.js --mode production --output-path ./dist/web",
+    "bundle:all": "set -euo pipefail && npm run bundle:android && npm run bundle:ios && npm run bundle:web",
+    "reset": "set -euo pipefail && watchman watch-del-all && watchman shutdown-server && rm -rf .cache \"$TMPDIR\"/metro-{*,.*}",
+    "preview": "node -e \"const fs=require('fs'); const k=process.env.CHOICELY_APP_KEY; if(!k){console.error('ERROR: CHOICELY_APP_KEY is not set'); process.exit(1);} fs.writeFileSync('res/preview/config.js', 'window.__CHOICELY_APP_KEY__=' + JSON.stringify(k) + ';\\n');\" && NODE_OPTIONS=--no-deprecation http-server ./res/preview -a 0.0.0.0 -c-1 --silent"
+  },
+  "dependencies": {
+    "@react-native/virtualized-lists": "0.82.0",
+    "@react-navigation/native": "^7.1.19",
+    "@react-navigation/native-stack": "^7.6.2",
+    "@shopify/flash-list": "^2.2.0",
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "process": "^0.11.10",
+    "react": "19.1.1",
+    "react-native": "0.82.0",
+    "react-native-gesture-handler": "^2.30.0",
+    "react-native-image-picker": "^8.2.1",
+    "react-native-localize": "^3.6.1",
+    "react-native-mmkv": "4.1.0",
+    "react-native-nitro-modules": "0.31.10",
+    "react-native-permissions": "^5.4.4",
+    "react-native-reanimated": "^4.2.1",
+    "react-native-render-html": "^6.3.4",
+    "react-native-safe-area-context": "^5.5.2",
+    "react-native-screens": "^4.18.0",
+    "react-native-svg": "^15.15.1",
+    "react-native-toast-message": "^2.3.3",
+    "react-native-vector-icons": "^10.3.0",
+    "react-native-video": "^6.18.0",
+    "react-native-webview": "^13.16.0",
+    "react-native-worklets": "^0.7.1",
+    "semver": "^7.7.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/eslint-parser": "^7.28.6",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@babel/plugin-transform-export-namespace-from": "^7.27.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.27.1",
+    "@babel/preset-env": "^7.27.1",
+    "@babel/runtime": "^7.27.1",
+    "@react-native-community/cli": "20.0.0",
+    "@react-native-community/cli-platform-android": "20.0.0",
+    "@react-native-community/cli-platform-ios": "20.0.0",
+    "@react-native/babel-preset": "0.82.0",
+    "@react-native/eslint-config": "^0.83.1",
+    "@react-native/metro-config": "0.82.0",
+    "babel-loader": "^9.1.3",
+    "babel-plugin-react-native-web": "0.21.2",
+    "compression": "^1.8.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-native": "^5.0.0",
+    "express": "^5.2.1",
+    "html-webpack-plugin": "^5.6.0",
+    "http-server": "^14.1.1",
+    "metro-cache": "0.82.0",
+    "react-dom": "19.1.1",
+    "react-native-web": "0.21.2",
+    "react-test-renderer": "19.1.1",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
+```
+
+Then install the dependencies:
+
+```bash
+cd app-react-native
+npm install
+```
+
+### Step 2 — Create `react-native.config.js`
+
+**File:** `app-react-native/react-native.config.js`
+
+<Warning>
+The filename MUST use dots (`react-native.config.js`), not dashes (`react-native-config.js`).
+</Warning>
+
+```js
+module.exports = {
+  project: {
+    android: {
+      sourceDir: "../",
+      appName: "app",
+      packageName: "com.your.app",
+    },
+  },
+};
+```
+
+- `sourceDir` — points to the Android project root (one level up)
+- `appName` — your Android app module name
+- `packageName` — must match your `applicationId`
+
+### Step 3 — Configure `settings.gradle`
+
+```groovy
+pluginManagement {
+    repositories {
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    includeBuild("app-react-native/node_modules/@react-native/gradle-plugin")
+}
+plugins {
+    id "com.facebook.react.settings"
+}
+reactSettings {
+    autolinkLibrariesFromCommand(
+        [
+            ["/opt/homebrew/bin/node", "/usr/local/bin/node"]
+                .find { new File(it).exists() } ?: "node",
+            "node_modules/react-native/cli.js",
+            "config"
+        ],
+        file("app-react-native")
+    )
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "YourApp"
+include ':app'
+```
+
+<Info>
+**Why `PREFER_SETTINGS`?** RN library modules add their own Maven repositories. `FAIL_ON_PROJECT_REPOS` rejects those and fails the build.
+</Info>
+
+### Step 4 — Configure Root `build.gradle`
+
+```groovy
+buildscript {
+    ext {
+        minSdkVersion = 26
+        compileSdkVersion = 36
+        buildToolsVersion = "35.0.0"
+        targetSdkVersion = 36
+        REACT_NATIVE_NODE_MODULES_DIR = file("${rootDir}/app-react-native/node_modules/react-native").canonicalPath
+    }
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
+        maven { url "$rootDir/app-react-native/node_modules/react-native/android" }
+    }
+}
+plugins {
+    alias(libs.plugins.android.application) apply false
+    id "com.facebook.react" apply false
+}
+
+// --- Node binary detection ---
+ext.nodeBinary = ["/opt/homebrew/bin/node", "/usr/local/bin/node"]
+    .find { new File(it).exists() } ?: "node"
+def nodeBin = ext.nodeBinary
+
+// --- Patch RN modules that hardcode "node" ---
+if (nodeBin != "node") {
+    [
+        "react-native-reanimated/android/build.gradle",
+        "react-native-screens/android/build.gradle",
+        "react-native-svg/android/build.gradle",
+        "react-native-gesture-handler/android/build.gradle"
+    ].each { relPath ->
+        def f = file("app-react-native/node_modules/$relPath")
+        if (f.exists()) {
+            def content = f.text
+            if (content.contains('commandLine("node"')) {
+                f.text = content.replace('commandLine("node"', "commandLine(\"$nodeBin\"")
+            }
+        }
+    }
+}
+
+// --- Remove CMake cache before clean ---
+tasks.matching { it.name == "clean" }.configureEach {
+    doFirst {
+        delete file("${rootDir}/app/.cxx")
+    }
+}
+
+allprojects {
+    afterEvaluate {
+        if (it.hasProperty("android")) {
+            android.buildFeatures.buildConfig = true
+        }
+    }
+    tasks.withType(Exec) {
+        if (nodeBin != "node") {
+            def nodeDir = new File(nodeBin).parent
+            environment "PATH", "${nodeDir}${File.pathSeparator}${System.getenv("PATH")}"
+        }
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+```
+
+Three things this does:
+
+1. **Node detection** — Finds node binary on macOS (Homebrew or /usr/local)
+2. **Node patching** — Fixes RN modules that hardcode `"node"` (Android Studio doesn't have it in PATH)
+3. **Clean fix** — Removes `app/.cxx` before `clean` so CMake doesn't reference deleted codegen directories
+
+### Step 5 — Configure App `build.gradle`
+
+```groovy
+plugins {
+    alias(libs.plugins.android.application)
+}
+apply plugin: "com.facebook.react"
+
+ext {
+    REACT_NATIVE_NODE_MODULES_DIR = rootProject.ext.REACT_NATIVE_NODE_MODULES_DIR
+}
+
+react {
+    nodeExecutableAndArgs.set([rootProject.ext.nodeBinary])
+    cliFile.set(file("../app-react-native/node_modules/react-native/cli.js"))
+    reactNativeDir.set(file("../app-react-native/node_modules/react-native"))
+    codegenDir.set(file("../app-react-native/node_modules/@react-native/codegen"))
+    autolinkLibrariesWithApp()
+}
+
+android {
+    // your config...
+}
+
+dependencies {
+    // your dependencies...
+}
+```
+
+The `react {}` block tells the RN Gradle plugin where everything lives:
+
+| Property | What it does |
+|---|---|
+| `cliFile` | Path to the RN CLI |
+| `reactNativeDir` | Path to the `react-native` package |
+| `codegenDir` | Path to `@react-native/codegen` (avoids need for symlinks) |
+| `autolinkLibrariesWithApp()` | Enables autolinking of RN libraries |
+
+### Step 6 — Configure `gradle.properties`
+
+```properties
+newArchEnabled=true
+hermesEnabled=true
+```
+
+---
+
+## Build Commands
+
+```bash
+# Build
+./gradlew :app:assembleDebug
+
+# Clean + Build
+./gradlew clean :app:assembleDebug
+```
+
+---
+
+## Troubleshooting
+
+| Error | Fix |
+|---|---|
+| `Could not find project.android.packageName` | Rename config file to `react-native.config.js` (dots, not dashes) |
+| `Cannot find module '@react-native/codegen'` | Set `codegenDir` in the `react {}` block |
+| `BuildConfig fields disabled` | The `afterEvaluate` block in root `build.gradle` enables it for all modules |
+| `Node binary not found during build` | Update paths in `ext.nodeBinary` or add your node path |

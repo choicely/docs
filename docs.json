@@ -25,7 +25,8 @@
                 "expanded": true,
                 "pages": [
                   "android-advanced/custom-splash",
-                  "android-advanced/custom-fragment"
+                  "android-advanced/custom-fragment",
+                  "android-advanced/react-native"
                 ]
               }
             ]
