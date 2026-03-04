@@ -1,9 +1,3 @@
----
-title: "React Native Support"
-description: "Integrate a React Native module into an existing native Android project"
-icon: "atom"
----
-
 # Choicely RN — Android Integration Guide
 
 Integrate the Choicely React Native SDK into your native Android project.
