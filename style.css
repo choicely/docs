@@ -1,0 +1,15 @@
+#topbar-cta-button span.bg-primary-dark {
+  background-color: #1a1a1a;
+}
+
+.dark #topbar-cta-button span.bg-primary-dark {
+  background-color: white;
+}
+
+.dark #topbar-cta-button span.text-white {
+  color: black;
+}
+
+.dark #topbar-cta-button svg {
+  color: black;
+}
