@@ -142,9 +142,6 @@
   "integrations": {
     "gtm": {
         "tagId": "GTM-5Z7F93L"
-    },
-    "mixpanel": {
-        "projectToken": "4c9450be4bfbabcbf02bbe706fa79cfd"
     }
   }
 }
