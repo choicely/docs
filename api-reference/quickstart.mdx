@@ -1,0 +1,63 @@
+---
+title: "Quickstart"
+description: "Set up your API key, configure requests, and call your first endpoint"
+icon: "rocket"
+---
+
+This guide walks you through using the Choicely Developer API. By following these steps, you'll set up your API key, configure your requests, and interact with the various API endpoints to integrate seamlessly with the platform.
+
+## Step 1: Generate your Developer API key
+
+To begin using the Developer API, generate an API key with the necessary permissions:
+
+1. Go to your account's **Manage Account**.
+2. In **Linked accounts**, select **Developer API** and create your API key.
+3. Choose the permissions your API key should have based on your integration needs.
+4. Copy the generated API key and store it securely — you'll need it for configuring requests.
+
+<Warning>
+  Store your API key securely and never expose it in client-side code. Treat it like a password.
+</Warning>
+
+## Step 2: Configure your request with the API key
+
+Use your API key as a Bearer token in the request header to authenticate your calls:
+
+```bash
+Authorization: Bearer <YOUR_API_KEY>
+```
+
+This header ensures that each API request is authorized and processed securely. See [Authentication](/api-reference/authentication) for details.
+
+## Step 3: Browse the documentation
+
+Explore the [resource pages](/api-reference/introduction) to find the available endpoints. Each endpoint includes:
+
+- A description of the endpoint's functionality
+- Required headers, parameters, and permissions
+- Sample payloads for reference
+
+## Step 4: Choose your endpoint and HTTP method
+
+Find the endpoint you want to use based on your integration requirements:
+
+- **Available endpoints:** `/apps`, `/articles`, `/contests`, and others.
+- **HTTP methods:** Identify the method required for each endpoint, such as `GET`, `POST`, `PATCH`, etc.
+
+For example:
+
+```http
+POST /apps
+GET /apps/<app_key>
+PATCH /apps/<app_key>
+```
+
+## Step 5: Experiment with sample payloads
+
+Each resource page provides a sample payload to help you format your data:
+
+- **Request body:** Use the sample payload as a guide for structuring your request.
+- **Customization:** Adjust fields within the payload to meet your requirements.
+- **Testing:** Try sending requests with sample payloads in Postman or any HTTP client.
+
+Now you're ready to start integrating with the Choicely Developer API. For any questions, refer to the resource pages or reach out to [support@choicely.com](mailto:support@choicely.com) for further assistance.

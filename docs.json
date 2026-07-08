@@ -67,6 +67,35 @@
         ]
       },
       {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/quickstart",
+              "api-reference/authentication"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "api-reference/app",
+              "api-reference/article",
+              "api-reference/contest",
+              "api-reference/feed",
+              "api-reference/file",
+              "api-reference/image",
+              "api-reference/purchase",
+              "api-reference/schedule",
+              "api-reference/shop",
+              "api-reference/survey",
+              "api-reference/vote-count"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Gemini CLI",
         "groups": [
           {

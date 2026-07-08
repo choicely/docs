@@ -1,0 +1,37 @@
+---
+title: "Authentication"
+description: "Authenticate Developer API requests with a Bearer token"
+icon: "key"
+---
+
+The Choicely Developer API authenticates every request with an API key sent as a **Bearer token** in the HTTP `Authorization` header.
+
+## Create a Developer API key
+
+1. Go to your account's **Manage Account**.
+2. In **Linked accounts**, select **Developer API** and create your API key.
+3. Choose the permissions your API key should have based on your integration needs.
+4. Copy the generated API key and store it securely.
+
+<Note>
+  Permissions are configured per key. Grant a key only the permissions its integration needs.
+</Note>
+
+## Authorize your requests
+
+Include your API key as a Bearer token in the `Authorization` header of every request:
+
+```bash
+Authorization: Bearer <YOUR_API_KEY>
+```
+
+For example:
+
+```bash
+curl "https://backend.choicely.com/apps" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+
+<Warning>
+  Never expose your API key in client-side code or public repositories. If a key is leaked, revoke it and create a new one from **Manage Account → Linked accounts → Developer API**.
+</Warning>

@@ -1,0 +1,179 @@
+---
+title: "App"
+description: "Create, read, update, and delete Choicely apps"
+icon: "mobile-screen"
+---
+
+The App resource represents a Choicely app and its configuration — store settings, build and splash options, auth methods, toolbar, and more.
+
+## Sample payload
+
+```json
+{
+  "app_store": {
+    "bundle_id": "<ios_bundle_id>",
+    "app_store_id": "<app_store_id>",
+    "access_key": "<app_store_access_key>"
+  },
+  "build": {
+    "splash": {
+      "splash_image": {},
+      "background": {},
+      "background_style": {},
+      "foreground": {},
+      "foreground_style": {},
+      "style": {}
+    },
+    "firebase_project": {},
+    "android": {},
+    "ios": {},
+    "general": {
+      "website": "",
+      "support_email": "",
+      "support_url": "",
+      "terms_url": "",
+      "privacy_policy_url": ""
+    }
+  },
+  "config": {
+    "app_wide_topic": {},
+    "is_contest_firebase_connection": true,
+    "is_data_service_enabled": true,
+    "is_login_required_at_startup": true,
+    "cloud_settings": {
+      "region": "eu",
+      "updated": "1970-01-01T00:00:00Z"
+    }
+  },
+  "consent_setup": "",
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {},
+  "default_nav_item": {},
+  "google_play": {},
+  "image": {},
+  "key": "<app_key>",
+  "master_shop_key": "<master_shop_key>",
+  "screens": [],
+  "studio_app_profile": {
+    "auth_methods": {
+      "is_apple": true,
+      "is_email": true,
+      "is_facebook": true,
+      "is_google": true,
+      "is_sms": true
+    },
+    "firebase_project_key": "<firebase_project_key>",
+    "is_age_enabled": true,
+    "is_auto_profile_image_enabled": true,
+    "is_city_enabled": true,
+    "is_email_enabled": false,
+    "is_forgot_your_password_enabled": true,
+    "is_gender_enabled": true,
+    "is_logout_enabled": true,
+    "is_name_enabled": false,
+    "is_profile_enabled": true,
+    "is_profile_image_enabled": true,
+    "login": {},
+    "profile": {},
+    "provider": {},
+    "provider_key": "<provider_key>",
+    "register": {}
+  },
+  "tags": [],
+  "title": "App title",
+  "toolbar": {
+    "image": {},
+    "style": {},
+    "subtitle": "",
+    "title": ""
+  },
+  "updated": "1970-01-01T00:00:00Z"
+}
+```
+
+## Endpoints
+
+### Create App
+
+`POST /apps`
+
+Create a new app. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/apps" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "App title"
+  }'
+```
+</CodeGroup>
+
+### Get all Apps
+
+`GET /apps`
+
+Retrieve all apps.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/apps" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single App
+
+`GET /apps/<app_key>`
+
+Retrieve a single app by its key.
+
+<ParamField path="app_key" type="string" required>
+  Unique key of the app.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/apps/<app_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update App
+
+`PATCH /apps/<app_key>`
+
+Update an existing app. Include only the fields you want to change.
+
+<ParamField path="app_key" type="string" required>
+  Unique key of the app.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/apps/<app_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete App
+
+`DELETE /apps/<app_key>`
+
+Delete an app.
+
+<ParamField path="app_key" type="string" required>
+  Unique key of the app.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/apps/<app_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

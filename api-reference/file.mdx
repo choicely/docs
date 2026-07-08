@@ -1,0 +1,150 @@
+---
+title: "File"
+description: "Manage file metadata and upload, download, and delete file data"
+icon: "file"
+---
+
+The File resource is split into two sets of endpoints:
+
+- **Metadata APIs** — create and manage the file's metadata record (filename, type, access, and more).
+- **File data APIs** — upload, download, and delete the actual file bytes at the `upload_url` returned when you create the metadata.
+
+## Sample payload
+
+```json
+{
+  "access": {
+    "access": "private",
+    "updated": "1970-01-01T00:00:00Z"
+  },
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {},
+  "file_extension": "jpg",
+  "file_type": "image/jpeg",
+  "filename": "file_name.jpg",
+  "is_scanned": false,
+  "description": "this is a description",
+  "key": "<file_key>",
+  "updated": "1970-01-01T00:00:00Z",
+  "upload_url": ""
+}
+```
+
+## Metadata APIs
+
+### Create file metadata
+
+`POST /files`
+
+Create a file metadata record. The response includes an `upload_url` you use with the File data APIs to upload the file bytes.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/files" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filename": "file_name.jpg",
+    "file_type": "image/jpeg",
+    "file_extension": "jpg"
+  }'
+```
+</CodeGroup>
+
+### Get file metadata
+
+`GET /files/<file_key>`
+
+Retrieve a file's metadata by its key.
+
+<ParamField path="file_key" type="string" required>
+  Unique key of the file.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/files/<file_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update file metadata
+
+`PATCH /files/<file_key>`
+
+Update a file's metadata. Include only the fields you want to change.
+
+<ParamField path="file_key" type="string" required>
+  Unique key of the file.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/files/<file_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "this is a description"
+  }'
+```
+</CodeGroup>
+
+### Delete file metadata
+
+`DELETE /files/<file_key>`
+
+Delete a file's metadata.
+
+<ParamField path="file_key" type="string" required>
+  Unique key of the file.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/files/<file_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+## File data APIs
+
+<Note>
+  These endpoints operate on the `upload_url` returned by **Create file metadata** (the `upload_url` field of the file record). Use that URL directly in place of `<upload_url>` below.
+</Note>
+
+### Upload file
+
+`PUT <upload_url>`
+
+Upload the file's bytes to the `upload_url`.
+
+<CodeGroup>
+```bash cURL
+curl -X PUT "<upload_url>" \
+  --upload-file ./file_name.jpg
+```
+</CodeGroup>
+
+### Download file
+
+`GET <upload_url>`
+
+Download the file's bytes from the `upload_url`.
+
+<CodeGroup>
+```bash cURL
+curl "<upload_url>" --output file_name.jpg
+```
+</CodeGroup>
+
+### Delete file
+
+`DELETE <upload_url>`
+
+Delete the file's bytes at the `upload_url`.
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "<upload_url>"
+```
+</CodeGroup>

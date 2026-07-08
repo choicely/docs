@@ -1,0 +1,104 @@
+---
+title: "Vote count"
+description: "Read aggregated vote counts for a contest"
+icon: "check-to-slot"
+---
+
+The Vote count resource returns aggregated voting data for a contest — totals per participant and per vote source, including internal sources such as free (`c-free`) and paid (`c-paid`) votes. This endpoint is **read-only**.
+
+## Sample payload
+
+```json
+{
+  "anonymous_voter_count": 0,
+  "contest_key": "<contest_key>",
+  "contest_type": "voteonly",
+  "count": 0,
+  "created": "1970-01-01T00:00:00Z",
+  "participants": {
+    "<participant_key>": {
+      "anonymous_voter_count": 0,
+      "count": 0,
+      "unique_voter_count": 0,
+      "vote_sources": [
+        {
+          "anonymous_voter_count": 0,
+          "count": 0,
+          "mapped_id": "<external_participant_id>",
+          "source": "<source_key>",
+          "unique_voter_count": 0
+        },
+        {
+          "anonymous_voter_count": 0,
+          "count": 0,
+          "source": "c-free",
+          "unique_voter_count": 0
+        },
+        {
+          "anonymous_voter_count": 0,
+          "count": 0,
+          "source": "c-paid",
+          "unique_voter_count": 0
+        }
+      ]
+    }
+  },
+  "total_vote_sources": [
+    {
+      "anonymous_voter_count": 0,
+      "count": 0,
+      "is_in_total": true,
+      "is_internal": false,
+      "source": "<source_key>",
+      "title": "Valid source",
+      "unique_voter_count": 0,
+      "updated": "1970-01-01T00:00:00Z"
+    },
+    {
+      "anonymous_voter_count": 0,
+      "count": 0,
+      "is_in_total": true,
+      "is_internal": true,
+      "source": "c-free",
+      "title": "Free Votes",
+      "unique_voter_count": 0,
+      "updated": "1970-01-01T00:00:00Z"
+    },
+    {
+      "anonymous_voter_count": 0,
+      "count": 0,
+      "is_in_total": true,
+      "is_internal": true,
+      "source": "c-paid",
+      "title": "Paid Votes",
+      "unique_voter_count": 0,
+      "updated": "1970-01-01T00:00:00Z"
+    }
+  ],
+  "unique_voter_count": 0,
+  "updated": "1970-01-01T00:00:00Z"
+}
+```
+
+## Endpoints
+
+### Get vote count
+
+`GET /contests/<contest_key>/vote_updates/?sources=true`
+
+Retrieve aggregated vote counts for a contest.
+
+<ParamField path="contest_key" type="string" required>
+  Unique key of the contest.
+</ParamField>
+
+<ParamField query="sources" type="boolean">
+  When `true`, include a per-source breakdown of the vote counts.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/contests/<contest_key>/vote_updates/?sources=true" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

@@ -1,0 +1,259 @@
+---
+title: "Schedule"
+description: "Manage schedules and their timeslots"
+icon: "calendar"
+---
+
+The Schedule resource represents an event schedule with days and venues. Each schedule can contain **timeslots** — the individual sessions placed on a day and venue.
+
+<Note>
+  Schedules use the `/conventions` path. Timeslots are nested under a schedule at `/conventions/<convention_key>/timeslots`.
+</Note>
+
+## Schedule
+
+### Sample payload
+
+```json
+{
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {
+    "is_list_open_default": false,
+    "is_top_controls_enabled": true,
+    "list_default_mode": "order_venue"
+  },
+  "days": [
+    {
+      "bottom_text": "00:00 - 23:59",
+      "end": "1970-01-01T23:59:00Z",
+      "id": "<day_id>",
+      "start": "1970-01-01T00:00:00Z",
+      "title": "Thu"
+    }
+  ],
+  "end": "1970-01-01T23:59:00Z",
+  "key": "<convention_key>",
+  "search_help": [],
+  "start": "1970-01-01T00:00:00Z",
+  "style": {
+    "alpha": 1,
+    "letter_spacing": 0,
+    "max_lines": 0,
+    "sub_styles": []
+  },
+  "title": "Schedule Title",
+  "updated": "1970-01-01T00:00:00Z",
+  "venues": [
+    {
+      "description": "",
+      "id": "<venue_id>",
+      "position": 1,
+      "style": {},
+      "title": "Venue title"
+    }
+  ]
+}
+```
+
+### Create Schedule
+
+`POST /conventions`
+
+Create a new schedule. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/conventions" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Schedule Title"
+  }'
+```
+</CodeGroup>
+
+### Get all Schedules
+
+`GET /conventions`
+
+Retrieve all schedules.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/conventions" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Schedule
+
+`GET /conventions/<convention_key>`
+
+Retrieve a single schedule by its key.
+
+<ParamField path="convention_key" type="string" required>
+  Unique key of the schedule.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/conventions/<convention_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update Schedule
+
+`PATCH /conventions/<convention_key>`
+
+Update an existing schedule. Include only the fields you want to change.
+
+<ParamField path="convention_key" type="string" required>
+  Unique key of the schedule.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/conventions/<convention_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Schedule
+
+`DELETE /conventions/<convention_key>`
+
+Delete a schedule.
+
+<ParamField path="convention_key" type="string" required>
+  Unique key of the schedule.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/conventions/<convention_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+## Schedule Timeslot
+
+### Sample payload
+
+```json
+{
+  "article": "<article_key>",
+  "custom_data": {},
+  "day_id": "<random_id>",
+  "description": "",
+  "end": "1970-01-01T23:59:00Z",
+  "image": "<image_key>",
+  "navigation": {},
+  "search_terms": [
+    "search_term",
+    "search_term_2"
+  ],
+  "start": "1970-01-01T00:00:00Z",
+  "style": {},
+  "time_text": "00-23",
+  "title": "Timeslot Title",
+  "venue_id": "<random_id>"
+}
+```
+
+### Create Timeslot
+
+`POST /conventions/<convention_key>/timeslots`
+
+Create a new timeslot within a schedule.
+
+<ParamField path="convention_key" type="string" required>
+  Unique key of the schedule the timeslot belongs to.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/conventions/<convention_key>/timeslots" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Timeslot Title"
+  }'
+```
+</CodeGroup>
+
+### List Timeslots of Schedule
+
+`GET /conventions/<convention_key>/timeslots`
+
+Retrieve all timeslots for a schedule.
+
+<ParamField path="convention_key" type="string" required>
+  Unique key of the schedule.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/conventions/<convention_key>/timeslots" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Timeslot
+
+`GET /timeslots/<timeslot_key>`
+
+Retrieve a single timeslot by its key.
+
+<ParamField path="timeslot_key" type="string" required>
+  Unique key of the timeslot.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/timeslots/<timeslot_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update Timeslot
+
+`PATCH /timeslots/<timeslot_key>`
+
+Update an existing timeslot. Include only the fields you want to change.
+
+<ParamField path="timeslot_key" type="string" required>
+  Unique key of the timeslot.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/timeslots/<timeslot_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Timeslot
+
+`DELETE /timeslots/<timeslot_key>`
+
+Delete a timeslot.
+
+<ParamField path="timeslot_key" type="string" required>
+  Unique key of the timeslot.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/timeslots/<timeslot_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

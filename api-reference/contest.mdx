@@ -1,0 +1,177 @@
+---
+title: "Contest"
+description: "Create, read, update, and delete contests"
+icon: "trophy"
+---
+
+The Contest resource represents a voting contest, including its voting configuration, rating and ordering rules, schedule, and associated shop.
+
+## Sample payload
+
+```json
+{
+  "contest_config": {
+    "end": "2024-10-05T09:45:12Z",
+    "free": {
+      "is_mobile_only": false,
+      "max_contest": -1,
+      "max_participant": 1
+    },
+    "paid": {
+      "is_anonymous": false,
+      "max_contest": -1,
+      "max_participant": -1
+    },
+    "rating": {
+      "max_per_participant": 100,
+      "max_rating": 5,
+      "step_size": "fraction",
+      "style": {},
+      "sub_rating_configs": [
+        {
+          "sub_rating_id": "<sub_rating_id>",
+          "title": "title",
+          "max_votes": 100,
+          "style": {}
+        }
+      ]
+    },
+    "ordering": {
+      "skin": "list",
+      "position_style": {},
+      "position_icon": {},
+      "positions": [
+        {
+          "id": "<order_position_id>",
+          "index": 0,
+          "votes": 12,
+          "title": "",
+          "style": {},
+          "icon": {}
+        }
+      ]
+    },
+    "ip_config": "default",
+    "ip_restriction_per_participant": -1,
+    "is_anonymous_voting_enabled": false,
+    "is_contest_time_shown": true,
+    "is_grid_hidden": false,
+    "is_randomize": false,
+    "is_vote_removal_allowed": false,
+    "limit_result_amount": -1,
+    "participant_order": "running_number",
+    "participant_style": {},
+    "participant_visibility": "shown",
+    "renew_free_vote": {
+      "cooldown": -1,
+      "days_between": -1
+    },
+    "share_top_x": -1,
+    "start": "2023-10-05T09:45:12Z",
+    "vote_visibility": "hidden_until_end"
+  },
+  "contest_type": "voteonly",
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {},
+  "description": "",
+  "image": {},
+  "key": "<contest_key>",
+  "publish": "1970-01-01T00:00:00Z",
+  "share": {},
+  "shop": {},
+  "style": {},
+  "tags": [],
+  "thumbnail": [],
+  "title": "Contest title",
+  "updated": "1970-01-01T00:00:00Z",
+  "video": {}
+}
+```
+
+## Endpoints
+
+### Create Contest
+
+`POST /contests`
+
+Create a new contest. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/contests" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Contest title",
+    "contest_type": "voteonly"
+  }'
+```
+</CodeGroup>
+
+### Get all Contests
+
+`GET /contests`
+
+Retrieve all contests.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/contests" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Contest
+
+`GET /contests/<contest_key>`
+
+Retrieve a single contest by its key.
+
+<ParamField path="contest_key" type="string" required>
+  Unique key of the contest.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/contests/<contest_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update Contest
+
+`PATCH /contests/<contest_key>`
+
+Update an existing contest. Include only the fields you want to change.
+
+<ParamField path="contest_key" type="string" required>
+  Unique key of the contest.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/contests/<contest_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Contest
+
+`DELETE /contests/<contest_key>`
+
+Delete a contest.
+
+<ParamField path="contest_key" type="string" required>
+  Unique key of the contest.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/contests/<contest_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

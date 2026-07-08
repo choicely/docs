@@ -1,0 +1,74 @@
+---
+title: "Purchase"
+description: "Read user purchases"
+icon: "credit-card"
+---
+
+The Purchase resource represents a purchase made by a user — subscriptions and vote purchases across payment platforms. These endpoints are **read-only**.
+
+<Note>
+  Purchase endpoints are served under an `/api` prefix, unlike the other resources in this reference.
+</Note>
+
+## Sample payload
+
+```json
+{
+  "created": "1970-01-01T00:00:00Z",
+  "key": "<purchase_key>",
+  "package_key": "<package_key>",
+  "price": 100,
+  "purchase_platform": "google_play",
+  "purchase_token": "<token>",
+  "shop_key": "<shop_key>",
+  "subscription": {
+    "is_auto_renew": true,
+    "grace_end": "1970-01-01T00:00:00Z",
+    "expiration": "1970-01-01T00:00:00Z",
+    "access": true
+  },
+  "type": "vote",
+  "updated": "1970-01-01T00:00:00Z",
+  "vote": {
+    "contest_key": "<contest_key>",
+    "participant_key": "<participant_key>",
+    "count": 100
+  }
+}
+```
+
+## Endpoints
+
+### Get all Purchases for a User
+
+`GET /api/users/<user_id>/purchases`
+
+Retrieve all purchases for a user.
+
+<ParamField path="user_id" type="string" required>
+  Unique identifier of the user.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/api/users/<user_id>/purchases" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Purchase
+
+`GET /api/purchases/<purchase_key>`
+
+Retrieve a single purchase by its key.
+
+<ParamField path="purchase_key" type="string" required>
+  Unique key of the purchase.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/api/purchases/<purchase_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

@@ -1,0 +1,91 @@
+---
+title: "Image"
+description: "Upload, read, and delete images"
+icon: "image"
+---
+
+The Image resource lets you upload images — either by uploading a file directly or from a URL — and manage them.
+
+## Sample payload
+
+```json
+{
+  "access": {
+    "access": "public",
+    "updated": "1970-01-01T00:00:00Z"
+  },
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {},
+  "format": "webp",
+  "key": "<image_key>",
+  "title": "image_name",
+  "updated": "1970-01-01T00:00:00Z"
+}
+```
+
+## Endpoints
+
+### Upload an image file
+
+`POST /images`
+
+Upload an image by sending the file as multipart form data.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/images" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -F "file=@./image_name.webp"
+```
+</CodeGroup>
+
+### Upload an image from a URL
+
+`POST /images/upload_from_url`
+
+Upload an image by referencing a remote URL.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/images/upload_from_url" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://example.com/image.webp"
+  }'
+```
+</CodeGroup>
+
+### Get image
+
+`GET /images/<image_key>`
+
+Retrieve an image by its key.
+
+<ParamField path="image_key" type="string" required>
+  Unique key of the image.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/images/<image_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Delete image
+
+`DELETE /images/<image_key>`
+
+Delete an image.
+
+<ParamField path="image_key" type="string" required>
+  Unique key of the image.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/images/<image_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

@@ -1,0 +1,126 @@
+---
+title: "Survey"
+description: "Create, read, update, and delete surveys"
+icon: "square-poll-vertical"
+---
+
+The Survey resource represents a survey with its fields, groups, schedule, and answer settings.
+
+<Note>
+  Creating a survey uses `POST /surveys/<survey_key>` (with the key in the path), not `POST /surveys`.
+</Note>
+
+## Sample payload
+
+```json
+{
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {},
+  "end": "2025-05-20T22:45:00Z",
+  "fields": [],
+  "groups": [],
+  "image": {},
+  "key": "<survey_key>",
+  "settings": {
+    "answer_mode": "normal",
+    "auto_delete_answers_after_days": -1,
+    "is_anonymous_enabled": true
+  },
+  "start": "2024-09-19T21:00:00Z",
+  "style": {},
+  "tags": [],
+  "title": "Survey title",
+  "updated": "1970-01-01T00:00:00Z"
+}
+```
+
+## Endpoints
+
+### Get all Surveys
+
+`GET /surveys`
+
+Retrieve all surveys.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/surveys" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Survey
+
+`GET /surveys/<survey_key>`
+
+Retrieve a single survey by its key.
+
+<ParamField path="survey_key" type="string" required>
+  Unique key of the survey.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/surveys/<survey_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Create Survey
+
+`POST /surveys/<survey_key>`
+
+Create a survey. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<ParamField path="survey_key" type="string" required>
+  Unique key of the survey.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/surveys/<survey_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Survey title"
+  }'
+```
+</CodeGroup>
+
+### Update Survey
+
+`PATCH /surveys/<survey_key>`
+
+Update an existing survey. Include only the fields you want to change.
+
+<ParamField path="survey_key" type="string" required>
+  Unique key of the survey.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/surveys/<survey_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Survey
+
+`DELETE /surveys/<survey_key>`
+
+Delete a survey.
+
+<ParamField path="survey_key" type="string" required>
+  Unique key of the survey.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/surveys/<survey_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

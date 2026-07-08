@@ -1,0 +1,119 @@
+---
+title: "Feed"
+description: "Create, read, update, and delete feeds"
+icon: "rss"
+---
+
+The Feed resource represents a scrollable feed of content, including its header, footer, inner navigation, and styling.
+
+## Sample payload
+
+```json
+{
+  "created": "1970-01-01T00:00:00Z",
+  "custom_data": {},
+  "divider_height": 8,
+  "footer": {},
+  "header": {},
+  "inner_navigation": {
+    "is_swipe_enabled": true,
+    "location": "top",
+    "navigation_block": {
+      "is_scroll": true,
+      "nav_list": []
+    }
+  },
+  "key": "<feed_key>",
+  "style": {},
+  "tags": [],
+  "title": "Feed title",
+  "updated": "1970-01-01T00:00:00Z"
+}
+```
+
+## Endpoints
+
+### Create Feed
+
+`POST /feeds`
+
+Create a new feed. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/feeds" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Feed title"
+  }'
+```
+</CodeGroup>
+
+### Get all Feeds
+
+`GET /feeds`
+
+Retrieve all feeds.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/feeds" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Feed
+
+`GET /feeds/<feed_key>`
+
+Retrieve a single feed by its key.
+
+<ParamField path="feed_key" type="string" required>
+  Unique key of the feed.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/feeds/<feed_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update Feed
+
+`PATCH /feeds/<feed_key>`
+
+Update an existing feed. Include only the fields you want to change.
+
+<ParamField path="feed_key" type="string" required>
+  Unique key of the feed.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/feeds/<feed_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Feed
+
+`DELETE /feeds/<feed_key>`
+
+Delete a feed.
+
+<ParamField path="feed_key" type="string" required>
+  Unique key of the feed.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/feeds/<feed_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

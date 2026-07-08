@@ -1,0 +1,234 @@
+---
+title: "Shop"
+description: "Manage shops and master shops"
+icon: "store"
+---
+
+The Shop resource represents a store where users can purchase votes or subscriptions — including its packages, payment methods, currency, and button/template configuration. **Master Shops** share the same payload shape and provide reusable shop configuration across apps.
+
+## Sample payload
+
+```json
+{
+  "article": "<article_key>",
+  "cancel_button": {
+    "text": "NO THANKS",
+    "icon": {},
+    "style": {}
+  },
+  "created": "1970-01-01T00:00:00Z",
+  "currency": "EUR",
+  "currency_symbol": "€",
+  "currency_template": "{currency_symbol}{price}",
+  "custom_data": {},
+  "description_template": "Get more votes, {user_name}!",
+  "image": {},
+  "is_login_required": false,
+  "key": "<shop_key>",
+  "ok_button": {
+    "text": "GET VOTES",
+    "icon": {},
+    "style": {}
+  },
+  "packages": [
+    {
+      "created": "1970-01-01T00:00:00Z",
+      "key": "<package_key>",
+      "package_type": "permanent",
+      "price": 100,
+      "title": "Package title",
+      "updated": "1970-01-01T00:00:00Z",
+      "vote_count": 1,
+      "sub_months": 1,
+      "after_purchase_navigation": {}
+    }
+  ],
+  "payment_methods": [
+    "google_play",
+    "app_store",
+    "stripe"
+  ],
+  "receipt_description_template": "Shop - bought {get_votes_count} votes",
+  "shop_type": "participant_vote",
+  "stripe_statement_descriptor_suffix": "",
+  "style": {},
+  "title": "Shop title",
+  "title_template": "Support {participant_title}",
+  "updated": "1970-01-01T00:00:00Z"
+}
+```
+
+## Shop APIs
+
+### Create Shop
+
+`POST /shops`
+
+Create a new shop. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/shops" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Shop title",
+    "currency": "EUR"
+  }'
+```
+</CodeGroup>
+
+### Get all Shops
+
+`GET /shops`
+
+Retrieve all shops.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/shops" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Shop
+
+`GET /shops/<shop_key>`
+
+Retrieve a single shop by its key.
+
+<ParamField path="shop_key" type="string" required>
+  Unique key of the shop.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/shops/<shop_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update Shop
+
+`PATCH /shops/<shop_key>`
+
+Update an existing shop. Include only the fields you want to change.
+
+<ParamField path="shop_key" type="string" required>
+  Unique key of the shop.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/shops/<shop_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Shop
+
+`DELETE /shops/<shop_key>`
+
+Delete a shop.
+
+<ParamField path="shop_key" type="string" required>
+  Unique key of the shop.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/shops/<shop_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+## Master Shop APIs
+
+### Create Master Shop
+
+`POST /master_shops`
+
+Create a new master shop. Use the [sample payload](#sample-payload) as a guide for the request body.
+
+<CodeGroup>
+```bash cURL
+curl -X POST "https://backend.choicely.com/master_shops" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Shop title"
+  }'
+```
+</CodeGroup>
+
+### Get all Master Shops
+
+`GET /master_shops`
+
+Retrieve all master shops.
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/master_shops" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Get a single Master Shop
+
+`GET /master_shops/<shop_key>`
+
+Retrieve a single master shop by its key.
+
+<ParamField path="shop_key" type="string" required>
+  Unique key of the master shop.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl "https://backend.choicely.com/master_shops/<shop_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>
+
+### Update Master Shop
+
+`PATCH /master_shops/<shop_key>`
+
+Update an existing master shop. Include only the fields you want to change.
+
+<ParamField path="shop_key" type="string" required>
+  Unique key of the master shop.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X PATCH "https://backend.choicely.com/master_shops/<shop_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated title"
+  }'
+```
+</CodeGroup>
+
+### Delete Master Shop
+
+`DELETE /master_shops/<shop_key>`
+
+Delete a master shop.
+
+<ParamField path="shop_key" type="string" required>
+  Unique key of the master shop.
+</ParamField>
+
+<CodeGroup>
+```bash cURL
+curl -X DELETE "https://backend.choicely.com/master_shops/<shop_key>" \
+  -H "Authorization: Bearer <YOUR_API_KEY>"
+```
+</CodeGroup>

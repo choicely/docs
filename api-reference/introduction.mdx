@@ -1,0 +1,57 @@
+---
+title: "Introduction"
+description: "Integrate with Choicely using the Developer REST API"
+icon: "book-open"
+---
+
+The Choicely Developer API is a REST API that lets you programmatically manage the same resources you build in [Choicely Studio](https://studio.choicely.com) — apps, articles, contests, feeds, files, images, purchases, schedules, shops, surveys, and vote counts.
+
+Requests and responses use JSON, and every request is authenticated with a Bearer token. Create your key on the [Authentication](/api-reference/authentication) page, then follow the [Quickstart](/api-reference/quickstart) to make your first call.
+
+## Base URL
+
+All endpoints are served from the following base URL. Combine it with the paths shown on each resource page.
+
+```bash
+https://backend.choicely.com
+```
+
+For example, the Apps collection is available at `https://backend.choicely.com/apps`.
+
+## Resources
+
+<CardGroup cols={2}>
+  <Card title="App" icon="mobile-screen" href="/api-reference/app">
+    Create and manage apps
+  </Card>
+  <Card title="Article" icon="newspaper" href="/api-reference/article">
+    Create and manage articles
+  </Card>
+  <Card title="Contest" icon="trophy" href="/api-reference/contest">
+    Create and manage contests
+  </Card>
+  <Card title="Feed" icon="rss" href="/api-reference/feed">
+    Create and manage feeds
+  </Card>
+  <Card title="File" icon="file" href="/api-reference/file">
+    Manage file metadata and data
+  </Card>
+  <Card title="Image" icon="image" href="/api-reference/image">
+    Upload and manage images
+  </Card>
+  <Card title="Purchase" icon="credit-card" href="/api-reference/purchase">
+    Read user purchases
+  </Card>
+  <Card title="Schedule" icon="calendar" href="/api-reference/schedule">
+    Manage schedules and timeslots
+  </Card>
+  <Card title="Shop" icon="store" href="/api-reference/shop">
+    Manage shops and master shops
+  </Card>
+  <Card title="Survey" icon="square-poll-vertical" href="/api-reference/survey">
+    Create and manage surveys
+  </Card>
+  <Card title="Vote count" icon="check-to-slot" href="/api-reference/vote-count">
+    Read contest vote counts
+  </Card>
+</CardGroup>
